@@ -30,20 +30,25 @@
 \maketitle
 
 \begin{abstract}
-This paper addresses the problem of unsupervised domain adaptation on the task of people detection in crowded scenes. That is, given a well-trained deep detection model on source domain, we aim to adapt it into the target domain for which no annotations are needed. Firstly, we utilize iterative algorithm to auto-annotate samples on target domain. While auto-annotated samples include noise, the rate of false positive tends to explored. Thus, we mixed into training examples from source domain to suppress the data noise. Furthermore, we transform the inner product layers of our network into two separate layers and proposed a weights regularizer to avoid overfitting. Compared to generic model without any fine tuning on samples on target domain, the proposed method increased recall by $xx\%$ with precision drop from $xx\%$ to $xx\%$ on the target scenes. Also, we perform our algorithm on standard domain adaptation benchmarks Office Dataset with both supervised and unsupervised settings and our results are state of art.
+This paper addresses the problem of unsupervised domain adaptation on the task of people detection in crowded scenes. That is, given a deep detection model well-trained on source domain, we adapt it into scene-specific detectors for any target domain on which no annotations are available. Firstly, we utilize iterative algorithm to iteratively auto-annotate target samples with high confidence on people instance as training set for scene-specific model on target domain. However, auto-annotated samples not only are lack of negative samples, but contains false positive samples. Therefore, on the one hand, we reuse negative samples from source domain to compensate for imbalance between the amount of positive samples and negative samples. On the other hand, we design an unsupervised regularizer based on deep network to mitigate influence from data error. Besides, we transform the last full connected layer into two sub-layers-- element-wise layer and sum layer, on which the unsupervised regularizer can be added on. In experiments on people detection, the proposed method boosts recall by nearly $30\%$ while precision stays almost the same. Furthermore, we perform our method on standard domain adaptation benchmarks on both supervised and unsupervised settings and our results are state of the art.
 
-\keywords{Unsupervised Domain Adaptation, Deep Neural Network, People Detection}
+
+\keywords{Unsupervised Domain Adaptation, Unsupervised Regularizer, Deep Neural Network, People Detection}
 \end{abstract}
 
 
 \section{Introduction}
 
-Deep neural network has outstanding result on computer vision tasks, however, it require large labelled dataset. In famous challenges like PASCAL VOC and MS COCO, over millions of images with labels are needed for training. In surveillance applications like people detection, the annotation process is even human resource consuming. Till today, there are millions of cameras deployed for surveillance. However, surveillance situations varies in background, lights, viewpoints and so on in real world, which make the labelling work for all surveillance applications ever more unpractice. In the task of people detection, tens of thousands of annotated images are needed to train a deep neural network.
-\par
+Deep neural network has shown great power on traditional computer vision tasks, however, the labelled dataset should be large enough to train a deep model. In famous challenges such as PASCAL VOC and MS COCO, millions of labelled images are needed for training. This is also the case in surveillance applications. The annotation process for the task of people detection in crowded scenes is even more resource consuming, cause we need to label concrete locations of people instances. In modern society, there are over millions of cameras deployed for surveillance. However, these surveillance situations vary in lights, background, viewpoints, camera resolutions and so on. Directly utilizing models trained on old scenes will results in poor performance on the new situations due to data distribution changes. It is also unpractice to annotate people instances for every surveillance situation.
+
+When there are few or even none of labelled data in target domain, domain adaptation helps to reduce the amount of labelled data needed. Most traditional works \cite{saenko2010adapting,kulis2011you,gopalan2011domain,huang2006correcting,gretton2009covariate} either learn a shared representation between source and target domain, or project features into a common subspace. Recently, there are also works \cite{wang2014scene,zeng2014deep,hattori2015learning} proposed to learn a scene-specific detector by deep architecture. 
+
+
+
 When labelled data are few and even lack of in target domain, domain adaptation help to reduce the amount of labelled data needed when given abundant labelled data in source domain. Most traditional works \cite{saenko2010adapting,kulis2011you,gopalan2011domain,huang2006correcting,gretton2009covariate} try to learn a shared representation between source and target domain, or project features into a common subspace. Recently, works are also \cite{wang2014scene,zeng2014deep,hattori2015learning} proposed to learn scene-specific detector by deep architectures. In our task of people detection, we try to shift deep detection network well-trained on the source scene to target scenes on which no annotation are needed.
-\par
+
 In this paper, we proposed a new approach of unsupervised deep domain adaptation on people detection. Using generic model as initialization, we firstly use iterative algorithm to auto-annotate samples on target domain as fake ground truth. During every iteration, target model are updated and utilized to auto-annotate samples for next iteration. However, the data noise in auto-annotated dataset, like lack of true negative instances and false positive instances, will leads to exploration of false positive rate, as well as impeding further increase of recall. In order to eliminate the effect of data noise, two methods are proposed to regularize the training of the deep network. On the one hand, we mixed into auto-annotated dataset with annotated samples from source domain to compensate the lack of true negative instances. On the other hand, we separate the operation of last inner product layer of our network into two sub-operations -- element-wise multiply and sum operations, resulting new element-wise multiply layer and sum layer. Thus, a weights regularizer on element-wise layer can be added into the deep network as unsupervised loss to avoid exploration of false positive rate and boost recall.
-\par
+
 Also, we further evaluate our method on standard domain adaptation benchmark Office Dataset. The results of our adaptation approach outperform previously published works on both supervised and unsupervised settings, which demonstrate the feasibility of our adaptation approach on both detection and classification tasks.
 \par
 The contributions of our work are three folds.
@@ -57,7 +62,7 @@ The remainder of this paper is organized as follows. Section \ref{section:Relate
 
 \section{Relate Work}
 \label{section:Relate Work}
-\par
+
 In many detection works, generic model trained by large amount of samples on source domain are directly utilized to detect on target domain. They assume that samples on target domain are subsets of source domain. However, when the distribution of data on target and source domain varies largely, the performance will drop significantly. Domain adaptation aims to reduce the amount of data needed for target domain.
 
 Many domain adaptation works tried to learn a common representation space shared between source and target domain. Saenko et al. \cite{saenko2010adapting,kulis2011you} proposed a both linear-transform-based technique and kernel-transform-based technique to minimize domain changes. Gopalan et al. \cite{gopalan2011domain} projected features into Grassmann manifold instead of operating on features of raw data. Alternatively, Mesnil et al. \cite{mesnil2012unsupervised} used transfer learning to obtain good representations. However, these methods are limited because scene-specific features are not learned to boost accuracy. The regularizer of our method are inspired these works.
@@ -78,7 +83,7 @@ Both supervised loss and unsupervised regularizer are designed as loss function 
 % \nonumber to remove numbering (before each equation)
   L(\theta^{T}|{\bf X}^{S},{\bf B}^{S},{\bf X}^{T},{\bf \tilde{B}}^{T},\theta^{S}) &=& L_{S} + \alpha * L_{U} \\
   L_{S} &=&  \sum^{N^{T}}_{j=1}{\sum^{N^{T}_{J}}_{k=1}( r(\theta^{T}|x^{T}_{j},\tilde{b}^{T}_{j,k})+c(\theta^{T}|x^{T}_{j},\tilde{b}^{T}_{j,k}) )} \\
-  L_{U} &=& L_{MMD}(\theta^{T}|{\bf X}^{S},{\bf X}^{T},\theta^{S})
+  L_{U} &=& L_{MMD}(\theta^{T}|{\bf X}^{S},{\bf X}^{T},\theta^{S}) \label{Eq:lmmd}
 \end{eqnarray}
 where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}$ is the unsupervised regularizer part. $r(\cdot)$ is a regression loss for bounding box location, like norm-1 loss, and $c(\cdot)$ is a classification loss for bounding box confidence, such as cross-entropy loss. And $L_{MMD}(\cdot)$ is the MMD-based loss for unsupervised regularization. Coefficient $\alpha$ balance the effect of supervised and unsupervised loss. We set $\alpha = 10$ in our experiments.
 
@@ -113,7 +118,8 @@ sentence of a figure caption should generally end without a full stop}
 \end{figure}
 
 \subsection{Iterative Algorithm}
-In this section we introduce the iteration algorithm as training method at adaptation stage. To generate the auto-annotated data for the first iteration, we utilize the generic model well-trained on source domain, which results in training set on the target domain. As mentioned in Sec \ref{section:Detection Network}, the training set on target domain auto-annotated by the generic model in our experiment have low recall and high precision. At subsequent iterations, training set on target domain are auto-annotated by upgraded model resulting from training of last iteration. Among every iteration, these auto-annotated data are used as training data to upgrade the deep network.
+\label{Section:Iterative Algorithm}
+In this section we introduce the iteration algorithm as training method at adaptation stage. The auto-annotating tool takes images on target domain with high confidence as training data for next iteration. To generate the auto-annotated data for the first iteration, we utilize the generic model well-trained on source domain, which results in training set on the target domain. As mentioned in Sec \ref{section:Detection Network}, the training set on target domain auto-annotated by the generic model in our experiment have low recall and high precision. At subsequent iterations, training set on target domain are auto-annotated by upgraded model resulting from training of last iteration. Among every iteration, these auto-annotated data are used as training data to upgrade the deep network.
 
 As the training set on target domain auto-annotated for the training of first iteration have low recall rate and people and non-people regions mixed in negative instances, we ignore back propagation of bounding boxes with low confidence during training. That is, we encourage the network to have more confidence on positive instances and stay conservative toward negative instances. This policy will no doubt resulting predictions of many non-people instance and impeding the further training when many non-people instances are regarded as people instances by the target model. To compensate for lack of true negative instances, we add annotated samples from source domain into the training data, which are human annotated and can thus provide true negative samples. In our experiment, when training on additional samples from source domain, we only do back propagation of bounding boxes with low confidence. At the same time, the unsupervised loss will also regularize the network. The complete adaptation process is illustrated in Algorithm \ref{algorithm:Deep domain adaptation algorithm (to be completed)}. After a predetermined iteration limit $N^{I}$ is reached, we obtain our final detection model on the target domain.
 
@@ -167,7 +173,7 @@ at $x_s$. }
 \subsubsection{Unsupervised weights regularizer on Element-wise Multiply Layer}
 In works [decaf][][], the last feature vector layer are regarded as the final representation of images. (how to introduce beyond sharing weights) In domain adaptation tasks, when generic deep model are trained with abundant data from source domain, the last element-wise layer mentioned in Sec \ref{section:Element-wise Multiply Layer} also includes rich information leading to the final output. For the nodes in the output layer, inputs from element-wise layers that will contribute to its value are not randomly decided. In this paper, we assume that the distribution of $\vec{m}_{b,o}$ of the last element-wise layer on both source and target domain should be similar. In the last element-wise multiply layer, every dimension of $\vec{m}_{b,o}$ may contribute to the final output. However, as the old model on source domain are trained with abundant images, the distribution of $\vec{m}^{T}_{b,o}$ should be consistent compared with $\vec{m}^{S}_{b,o}$ of source domain when adapting deep network on target domain. We utilize MMD (maximum mean discrepancy) to encode the similarity of element-wise multiply layer of source domain and target domain:
 \begin{equation}\label{equation:LMMD}
-  L_{MMD}(\theta^{T}|{\bf X}^{S},{\bf X}^{T},\theta^{S}) = \frac{1}{N^{O}} \sum^{N^{O}}_{o=1}{\parallel \frac{1}{N^{B}}\sum^{N^{B}}_{b=1}{\vec{m}^{T}_{b,o}} - \frac{1}{N^{B}}\sum^{N^{B}}_{b=1}{\vec{m}^{S}_{b,o}} {\parallel}^{2}  }
+  L_{MMD}(\theta^{T}|{\bf X}^{S},{\bf X}^{T},\theta^{S}) = \frac{1}{N^{O}} \sum^{N^{O}}_{o=1}{allel \frac{1}{N^{B}}\sum^{N^{B}}_{b=1}{\vec{m}^{T}_{b,o}} - \frac{1}{N^{B}}\sum^{N^{B}}_{b=1}{\vec{m}^{S}_{b,o}} {allel}^{2}  }
 \end{equation}
 which can also interpreted as the Euclidean distance between the center of $\vec{m}^{T}_{b,o}$ and $\vec{m}^{S}_{b,o}$ across all output nodes. It's unpractical to get the distribution of the whole training set, while too few images cannot obtain a stable center for regularization. In our experiments, the $L_{MMD}(\cdot)$ loss is calculated for every batch. An example comparison of centers of $\vec{m}^{S}_{b_{i},o}$ and $\vec{m}^{S}_{b_{j},o}$ are shown in Fig x(1).
 
@@ -206,18 +212,6 @@ To show the effectiveness of our domain adaptation approach on people detection,
 Our evaluation metrics for detection uses the protocol defined in PASCAL VOC \cite{everingham2015pascal}. To judge a predicted bounding box whether correctly matches a ground truth bounding box, their intersection over their union must exceed 50\%. And Multiple detections of the same ground truth bounding box are regarded as one correct prediction. We plot the precision-recall curve in Fig x(!). Also, the F1 score $F1 = 2*precision*recall/(precision+recall)$ during the adaptation process are also shown in Fig x(!).
 
 
-\begin{figure}
-\centering
-\includegraphics[height=4.5cm]{images/precisionrecalltable.png}
-\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
-$x_i$ and $x_j$ ({\it left and right}) lead to the same summed estimate
-at $x_s$. This shows a figure consisting of different types of
-lines. Elements of the figure described in the caption should be set in
-italics,
-in parentheses, as shown in this sample caption. The last
-sentence of a figure caption should generally end without a full stop}
-\label{fig:example}
-\end{figure}
 
 \subsubsection{Experimental settings}
 We use deep learning framework Caffe \cite{jia2014caffe} as the adaptation architecture of our approach. During the adaptation, we set learning rate as 0.01 and momentum as 0.5. At initialization stage, GoogLeNet weights are firstly used to initialize source model of source stream, while parameters in RNN layers are randomly initialized from a uniform distribution. For each iteration, 100 auto-annotated images from target domain and 1000 annotated images from source domain are alternatively used for training. The outputs of our detection network contains bounding box locations and corresponding confidence, thus there are two full connected layers between the last feature vector layer and the final outputs. Experiments of unsupervised regularizer on element-wise layer for bounding box regression have no additional improvement on the performance when regularizer on element-wise layer for box confidence classification are added already. Our approach on domain adaptation are executed separately in the 3 target scenes.
@@ -232,23 +226,85 @@ To demonstrate the effectiveness of our approach, 4 methods are compared with me
 \end{enumerate}
 Fig x(!) plots the precision-recall curve of the above comparison methods in target scene 1). Also, the F1 score changes of every iteration during adaptation process are also depicted in Fig x(!). Table x(!) gives concrete precision and recall value of the 4 comparison methods on three target scenes when the F1 scores are at their highest. Examples of adaptation results are shown in Fig x(!).
 
+\begin{table}
+\centering
 \begin{tabular}{l  c c c c c c c c c c c}
   \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
     &   \multicolumn{3}{c}{Scene 1}   & & \multicolumn{3}{c}{Scene 2} & &  \multicolumn{3}{c}{Scene 3}   \\
    \cline{2-4} \cline{6-8} \cline{10-12}
-    & ~~Pr~~ & ~~Re~~ & ~~F1~~ & & ~~Pr~~ & ~~Re~~ & ~~F1~~ & & ~~Pr~~ & ~~Re~~ & ~~F1~~\\
+    & ~~1-Pr~~ & ~~Re~~ & ~~F1~~ & & ~~1-Pr~~ & ~~Re~~ & ~~F1~~ & & ~~1-Pr~~ & ~~Re~~ & ~~F1~~\\
   \hline
-  method 0~~ & 0.101 & 0.187 & 0.309 & ~~ & 556 & 32 & 65 & ~~ & 76 & 13 & 65 \\
-  method 1~~ & 0.245 & 0.408 & 0.530 & ~~ & 556 & 32 & 65 & ~~ & 76 & 13 & 65 \\
-  method 2~~ & 0.284 & 0.476 & 0.572 & ~~ & 556 & 32 & 65 & ~~ & 76 & 13 & 65 \\
-  method 3~~ & 0.109 & 0.496 & 0.637 & ~~ & 556 & 32 & 65 & ~~ & 76 & 13 & 65 \\
-  method 4~~ & 0.140 & 0.530 & 0.656 & ~~ & 556 & 32 & 65 & ~~ & 76 & 13 & 65 \\
+  method 0~~ & 0.101 & 0.187 & 0.309 & ~~ & 0.015 & 0.683 & 0.807 & ~~ & 0.035 & 0.412 & 0.577 \\
+  method 1~~ & 0.245 & 0.408 & 0.530 & ~~ & 0.632 & 0.905 & 0.524 & ~~ & 0.176 & 0.778 & 0.800 \\
+  method 2~~ & 0.284 & 0.476 & 0.572 & ~~ & 0.012 & 0.837 & {\bf 0.906} & ~~ & 0.078 & 0.653 & 0.764 \\
+  method 3~~ & 0.109 & 0.496 & 0.637 & ~~ & 0.002 & 0.721 & 0.838 & ~~ & 0.044 & 0.611 & 0.746 \\
+  method 4~~ & 0.140 & 0.530 & {\bf 0.656} & ~~ & 0.006 & 0.811 & 0.893 & ~~ & 0.097 & 0.778 & {\bf 0.836} \\
   \hline
 \end{tabular}
+\end{table}
 
 \subsubsection{Performance evaluation}
-From the experiment results,  Table x shows the results of above 4 methods on 5 target scenes. The overwhelming performance of method 4) on both 5 target scenes shows the effectiveness of our approach.
+From the Table x(!) and Fig x(1), we have the following observations:
+\begin{itemize}
+  \item The recall values of method 1,2,3,4, which all utilized iteration algorithm to upgrade the target model, are larger than that of method 0, which are source model trained on source domain. This implies the effectiveness of our iteration algorithm in auto-annotation and iterative training.
+  \item Compared with method 1, method 2 has higher F1 score. Their difference on whether a MMD regularizer are added into loss function demonstrates that our unsupervised regularizer can suppress data error and thus boost the final recall.
+  \item Method 4 has both higher precision and higher recall than method 2, which demonstrates the effectiveness of additional samples from source domain during adaptation process.
+  \item Compared with method 3, the recall of method 4 are further boosted. This results from the transformed element-wise layer which provided better regularization effect on the target model.
+\end{itemize}
+
+
+
+\subsection{Domain Adaptation on Standard Classification Benchmark}
+
+\subsubsection{Office dataset}
+The Office dataset \cite{saenko2010adapting} comprises 31 categories of objects from 3 domains (Amazon, DSLR, Webcam). Example images are depicted in Fig. x(!). As Amazon domain contains 2817 labelled images, which is the largest, we take it as source domain and Webcam domain as target domain. We follow the standard protocol for both supervised and unsupervised settings. Specifically, for supervised domain adaptation, we use 20 randomly sampled images with labels for each category as training data for Amazon domain. When evaluate on unsupervised domain adaptation, 3 labelled images from target domain are additional selected for each class. For both settings, the rest of images on target domain are used for evaluation.
+
+\begin{figure}
+\centering
+\includegraphics[height=4cm]{images/officeimages.png}
+\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
+$x_i$ and $x_j$ ({\it left and right}) }
+\label{fig:example}
+\end{figure}
+
+\subsubsection{Experimental settings and network design}
+On supervised setting, we reused the architecture in people detection. We utilize AlexNet \cite{krizhevsky2012imagenet} as the generic model of both streams. Firstly, we train the source model on source stream with provided training data from Amazon domain. Then iteration algorithm mentioned in Sec \ref{Section:Iterative Algorithm} are utilized for adaptation. The auto-labelling tool takes images on target domain with confidence exceeding 0.9 as training data for next iteration. The difference is besides auto-labelled images on target domain, 3 human labelled images for each class are also included as training data for target model. For each iteration, 100 images are randomly sampled from training data. The unsupervised MMD regularizer added on the element-wise layer transformed from the last full connect layer of target model set the coefficient value $\alpha$ as 10 on Eq \ref{Eq:lmmd}, the same as that in people detection task.
+
+We use the same experimental setting for our unsupervised adaptation, except that at adaptation stage, no human labelled images can be added into the training set.
+\subsubsection{Performance evaluation}
+In Table x(!), we compare our approach with other six recently published works in both supervised and unsupervised settings. The outstanding performance on both settings confirms the effectiveness of our iteration algorithm and MMD regularizer on the element-wise layer transformed from the last full connect layer.
+
+
+\begin{table}
+\centering
+\begin{tabular}{l c c}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+   & \multicolumn{2}{c}{A $\rightarrow$ W}    \\
+   \cline{2-3}
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    & ~Supervised~ & ~Unsupervised~ \\
+  \hline
+  GFK(PLS,PCA)\cite{gong2012geodesic} & 46.4 & 15.0 \\
+  SA \cite{fernando2013unsupervised} & 45.0 & 15.3 \\
+  DA-NBNN \cite{tommasi2013frustratingly} & 52.8 & 23.3 \\
+  DLID \cite{chopra2013dlid}& 51.9 & 26.1 \\
+  DeCAF${}_{6}$S \cite{donahue2013decaf} & 80.7 & 52.2 \\
+  DaNN \cite{ghifary2014domain}& 53.6 & 35.0 \\
+  \hline
+  Ours & {\bf 84.3} & {\bf 66.3} \\
+  Ours & {\bf 85.4} & {\bf 69.3} \\
+  \hline
+\end{tabular}
+\end{table}
+
+
+\section{Conclusions}
+\label{section:Conclusions}
+
+The paper ends with a conclusion.
 
 \begin{figure}
 \centering
@@ -257,15 +313,6 @@ From the experiment results,  Table x shows the results of above 4 methods on 5 
 $x_i$ and $x_j$ ({\it left and right}) }
 \label{fig:example}
 \end{figure}
-
-\subsection{Domain Adaptation on Office Dataset}
-balabala...
-
-\section{Conclusions}
-\label{section:Conclusions}
-
-The paper ends with a conclusion.
-
 
 \bibliographystyle{splncs}
 \bibliography{egbib}
