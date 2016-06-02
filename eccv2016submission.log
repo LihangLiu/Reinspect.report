@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.27)  1 JUN 2016 18:15
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.27)  2 JUN 2016 20:56
 entering extended mode
 **C:/New*Dist*Assumption/Graduation*Project/ECCV2016-Workshop*on*Crowd*Understa
 nding/Reinspect.report/eccv2016submission.tex
@@ -428,65 +428,66 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1{C:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}
 
 
-] [2] [3]
-<images/streams.png, id=24, 455.45157pt x 210.7875pt>
-File: images/streams.png Graphic file (type png)
- <use images/streams.png>
-Package pdftex.def Info: images/streams.png used on input line 90.
-(pdftex.def)             Requested size: 276.65752pt x 128.0374pt.
+]
+Overfull \hbox (1.1826pt too wide) in paragraph at lines 48--49
+[]\OT1/cmr/m/n/10 Also, we fur-ther e-val-u-ate our ap-proach on s-tan-dard do-
+main adap-ta-tion bench-
+ []
 
-[4] <images/dummyimage.png, id=31, 503.63156pt x 188.20313pt>
+[2] [3] <images/streams.png, id=24, 455.45157pt x 210.7875pt>
+File: images/streams.png Graphic file (type png)
+
+<use images/streams.png>
+Package pdftex.def Info: images/streams.png used on input line 89.
+(pdftex.def)             Requested size: 276.65752pt x 128.0374pt.
+ [4]
+<images/dummyimage.png, id=31, 503.63156pt x 188.20313pt>
 File: images/dummyimage.png Graphic file (type png)
 
 <use images/dummyimage.png>
-Package pdftex.def Info: images/dummyimage.png used on input line 107.
+Package pdftex.def Info: images/dummyimage.png used on input line 106.
 (pdftex.def)             Requested size: 342.64935pt x 128.0374pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [5 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
-standing/Reinspect.report/images/streams.png> <C:/New Dist Assumption/Graduatio
-n Project/ECCV2016-Workshop on Crowd Understanding/Reinspect.report/images/dumm
-yimage.png>]
-Underfull \vbox (badness 1502) has occurred while \output is active []
-
- [6]
-<images/mmd.png, id=44, 481.8pt x 361.35pt>
+standing/Reinspect.report/images/streams.png>]
+[6 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unders
+tanding/Reinspect.report/images/dummyimage.png>]
+<images/mmd.png, id=43, 481.8pt x 361.35pt>
 File: images/mmd.png Graphic file (type png)
  <use images/mmd.png>
-Package pdftex.def Info: images/mmd.png used on input line 164.
+Package pdftex.def Info: images/mmd.png used on input line 163.
 (pdftex.def)             Requested size: 170.71304pt x 128.0374pt.
  [7]
 <images/fullconnectlayers.png, id=51, 377.91188pt x 154.32657pt>
 File: images/fullconnectlayers.png Graphic file (type png)
 
 <use images/fullconnectlayers.png>
-Package pdftex.def Info: images/fullconnectlayers.png used on input line 180.
+Package pdftex.def Info: images/fullconnectlayers.png used on input line 179.
 (pdftex.def)             Requested size: 313.56297pt x 128.0374pt.
- [8 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
-standing/Reinspect.report/images/mmd.png> <C:/New Dist Assumption/Graduation Pr
-oject/ECCV2016-Workshop on Crowd Understanding/Reinspect.report/images/fullconn
-ectlayers.png>]
-<images/precisionrecall.png, id=56, 499.11469pt x 282.30469pt>
+
+<images/precisionrecall.png, id=52, 499.11469pt x 282.30469pt>
 File: images/precisionrecall.png Graphic file (type png)
 
 <use images/precisionrecall.png>
-Package pdftex.def Info: images/precisionrecall.png used on input line 194.
+Package pdftex.def Info: images/precisionrecall.png used on input line 193.
 (pdftex.def)             Requested size: 226.37402pt x 128.0374pt.
- [9 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
-standing/Reinspect.report/images/precisionrecall.png>] [10] <images/officeimage
-s.png, id=64, 493.845pt x 164.11313pt>
+ [8 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
+standing/Reinspect.report/images/mmd.png>]
+[9 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unders
+tanding/Reinspect.report/images/fullconnectlayers.png> <C:/New Dist Assumption/
+Graduation Project/ECCV2016-Workshop on Crowd Understanding/Reinspect.report/im
+ages/precisionrecall.png>] [10] [11]
+<images/officeimages.png, id=67, 493.845pt x 164.11313pt>
 File: images/officeimages.png Graphic file (type png)
 
 <use images/officeimages.png>
-Package pdftex.def Info: images/officeimages.png used on input line 263.
+Package pdftex.def Info: images/officeimages.png used on input line 262.
 (pdftex.def)             Requested size: 342.47902pt x 113.81102pt.
- [11]
+
 <images/detectionresult.png, id=68, 1047.915pt x 1178.4828pt>
 File: images/detectionresult.png Graphic file (type png)
 
 <use images/detectionresult.png>
-Package pdftex.def Info: images/detectionresult.png used on input line 309.
+Package pdftex.def Info: images/detectionresult.png used on input line 308.
 (pdftex.def)             Requested size: 328.89572pt x 369.88582pt.
 
 ("C:\New Dist Assumption\Graduation Project\ECCV2016-Workshop on Crowd Understa
@@ -509,11 +510,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  3771 strings out of 495354
  49897 string characters out of 3183859
- 126539 words of memory out of 3000000
+ 125539 words of memory out of 3000000
  6857 multiletter control sequences out of 15000+200000
  14585 words of font info for 54 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 31i,10n,29p,1466b,374s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,10n,29p,1526b,372s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/CTEX/MiKTeX/fon
 ts/type1/public/amsfonts/cm/cmbx12.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmbx9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:
@@ -530,7 +531,7 @@ public/amsfonts/cm/cmss8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cms
 s9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/CTEX/MiKTe
 X/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmsy9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on eccv2016submission.pdf (15 pages, 10163072 bytes).
+Output written on eccv2016submission.pdf (15 pages, 10166355 bytes).
 PDF statistics:
  153 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
