@@ -70,7 +70,20 @@ There are also works on deep adaptation to construct scene-specific detector. Wa
 \section{Our Approach}
 \label{section:Our Approach}
 
-In this section, we introduce our unsupervised domain adaptation architecture on the task of people detection in crowded scenes. We denote training samples from source domain as ${\bf X}^{S} = \{x^{S}_{i}\}^{N^{S}}_{i=1}$. For training samples on source domain, we have corresponding annotations $Y^{S} = \{y^{S}_{i}\}^{N^{S}}_{i=1}$ with $y^{S}_{i} = (b^{S}_{i},c^{S}_{i})$, where $b^{S}_{i} = (x,y,w,h) \in R^{4}$ is the bounding box location and $c^{S}_{i} \in \{0,1\}$ is the label indicating whether $x^{S}_{i}$ is a people instance. Also, we can denote the training samples on target domain as ${\bf X}^{T,n} = \{x^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and corresponding annotations as $Y^{T,n} = \{y^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ with $y^{T,n}_{j} = (b^{T,n}_{j},c^{T,n}_{j})$ and $c^{T,n}_{j}\equiv 1$, where $n \in \{1,...,N^{I}\}$ is the index of adaptation iteration process. $N^{I}$ is the maximum number of adaptation iterations. Note that different from source domain, training set on target domain are auto-annotated samples with high confidence as people instance. Therefore, these auto-annotated data are all regarded as positive samples and equal amount of negative samples are randomly selected from target domain. During every adaptation iteration, the auto-annotation tool (also the target model) will be updated. Thus, the training samples for target domain at $n^{th}$ adaptation iteration may differ from that at $(n+1)^{th}$ adaptation iteration.
+In this section, we introduce xxx. Iteration to auto-annotate. reasons for iteration: 1. unsupervised scenario. 2. avoid overfitting. problems in iteration, loss exceed gains. thus we added regularizer. regularizer is based on assumption xxx.
+
+the adaptation architecture xxx. source stream xxx. target stream xxx. basic model xxx. transform xxx.
+
+Denote xx as xxx..... we can define loss function as xxx. where xx is xxx.
+
+Iteration algorithm. 
+
+separately training. in initialization stage, xxx. In adaptation stage xxx.
+
+...
+
+
+In this section, we introduce our unsupervised domain adaptation architecture on the task of people detection in crowded scenes. We denote training samples from source domain as ${\bf X}^{S} = \{x^{S}_{i}\}^{N^{S}}_{i=1}$. For training samples on source domain, we have corresponding annotations $Y^{S} = \{y^{S}_{i}\}^{N^{S}}_{i=1}$ with $y^{S}_{i} = (b^{S}_{i},c^{S}_{i})$, where $b^{S}_{i} = (x,y,w,h) \in R^{4}$ is the bounding box location and $c^{S}_{i} \in \{0,1\}$ is the label indicating whether $x^{S}_{i}$ is a people instance. Also, we can denote the training samples on target domain  as ${\bf X}^{T,n} = \{x^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and corresponding annotations as $Y^{T,n} = \{y^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ with $y^{T,n}_{j} = (b^{T,n}_{j},c^{T,n}_{j})$ and $c^{T,n}_{j}\equiv 1$, where $n \in \{1,...,N^{I}\}$ is the index of adaptation iteration process. $N^{I}$ is the maximum number of adaptation iterations. Note that different from source domain, training set on target domain are auto-annotated samples with high confidence as people instance. Therefore, these auto-annotated data are all regarded as positive samples and equal amount of negative samples are randomly selected from target domain. During every adaptation iteration, the auto-annotation tool (also the target model) will be updated. Thus, the training samples for target domain at $n^{th}$ adaptation iteration may differ from that at $(n+1)^{th}$ adaptation iteration.
 
 The adaptation architecture of our approach consists of two streams -- source stream and target stream, as shown in Fig \ref{fig:streams}. Source steam takes samples from source domain as input, while target stream are trained by auto-annotated positive samples from target domain and negative samples from source domain. These two streams can utilize any deep detection network as their basic model, as well as their detection loss function as supervised loss functions of two streams. In our experiment, we use the detection network mentioned in Section \ref{section:Detection Network} as the basic model. For the purpose of unsupervised regularizer, the last full connected layers on both source and target model are transformed into two sub-layers -- element-wise multiply layer and sum layer, as mentioned in Section \ref{section:Element-wise Multiply Layer}.
 
@@ -84,7 +97,7 @@ The loss function of adaptation architecture is composed of a supervised loss an
              &&+ \sum^{N^{T,n}}_{i=f(j)}{( R(\theta^{T,n}|x^{S}_{i},b^{S}_{i})+C(\theta^{T,n}|x^{S}_{i},c^{S}_{i}) )}\\
   L_{U} &=& L_{EWM}(\theta^{T}|{\bf X}^{T},{\bf X}^{S},\theta^{S}) \label{Eq:lmmd}
 \end{eqnarray}
-where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}$ is the unsupervised regularizer part. $R(\cdot)$ is a regression loss for bounding box location, like norm-1 loss, and $C(\cdot)$ is a classification loss for bounding box confidence, such as cross-entropy loss. $ f(\cdot)$ randomly returns an index under the condition that $x^{S}_{f(\cdot)}$ must be a negative sample. And $L_{EWM}(\cdot)$, to be introduced in Section \ref{section:Element-wise Multiply Layer}, is the MMD-based loss added on the element-wise multiply layer for unsupervised regularization. $\alpha$ is the coefficient balancing the effect of supervised and unsupervised loss. 
+where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}$ is the unsupervised regularizer part. $R(\cdot)$ is a regression loss for bounding box location, like norm-1 loss, and $C(\cdot)$ is a classification loss for bounding box confidence, such as cross-entropy loss. $ f(\cdot)$ randomly returns an index under the condition that $x^{S}_{f(\cdot)}$ must be a negative sample. And $L_{EWM}(\cdot)$, to be introduced in Section \ref{section:Element-wise Multiply Layer}, is the MMD-based loss added on the element-wise multiply layer for unsupervised regularization. $\alpha$ is the coefficient balancing the effect of supervised and unsupervised loss.
 
 \begin{figure}
 \centering
@@ -93,20 +106,12 @@ where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}
 \label{fig:streams}
 \end{figure}
 
-\subsection{Detection Network}
-\label{section:Detection Network}
-The generic model \footnote{Proposed by Russel et al.} used in our adaptation architecture for source and target stream is an end to end detection network without any precomputed region proposals needed. It consists of a GoogLeNet \cite{szegedy2015going} for feature extraction and a RNN-based decoder for output of bounding box and corresponding confidence, as shown in Fig x(!). Firstly, the GoogLeNet model encode the image into a feature map (15x20x1024) of which each 1024 dimension vector are data representation of its receptive field corresponding to a subregion of the image. Then the RNN-based layers with batch size 300 will decode the data representation and sequentially predict 5 possible bounding boxes by the order of its corresponding confidence. Finally, all outputs are summarized to give final detection results. When trained with abundant samples from source domain, the obtained model has a high precision on target domain, however, its recall is low. Also, different from other detection network \cite{girshick2015fast,vu2015context}, which need precomputed proposals for classification and fine regression, this generic model directly predict bounding boxes with high confidence. Thus, negative instances may contain people and non-people predictions, and cannot be employed in adaptation training.
-
-\begin{figure}
-\centering
-\includegraphics[height=5cm]{images/reinspect.png}
-\caption{xxxxxxxxxxxxx}
-\label{fig:reinspect}
-\end{figure}
 
 \subsection{Iterative Algorithm}
 \label{Section:Iterative Algorithm}
 In this section we introduce the iteration algorithm as training method at adaptation stage. The auto-annotating tool takes images on target domain with high confidence as training data for next iteration. To generate the auto-annotated data for the first iteration, we utilize the generic model well-trained on source domain, which results in training set on the target domain. As mentioned in Sec \ref{section:Detection Network}, the training set on target domain auto-annotated by the generic model in our experiment have low recall and high precision. At subsequent iterations, training set on target domain are auto-annotated by upgraded model resulting from training of last iteration. Among every iteration, these auto-annotated data are used as training data to upgrade the deep network.
+
+There are two reasons to employ iteration algorithm. Firstly, auto-annotated data on target domain change for every adaptation iteration and new samples will be auto-annotated as positive instances. Compared to methods without iteration algorithm, it helps to avoid overfitting caused by lack of data. Besides, unsupervised regularizer performs better with more training data as it's a distribution based regularizer.
 
 As the training set on target domain auto-annotated for the training of first iteration have low recall rate and people and non-people regions mixed in negative instances, we ignore back propagation of bounding boxes with low confidence during training. That is, we encourage the network to have more confidence on positive instances and stay conservative toward negative instances. This policy will no doubt resulting predictions of many non-people instance and impeding the further training when many non-people instances are regarded as people instances by the target model. To compensate for lack of true negative instances, we add annotated samples from source domain into the training data, which are human annotated and can thus provide true negative samples. In our experiment, when training on additional samples from source domain, we only do back propagation of bounding boxes with low confidence. At the same time, the unsupervised loss will also regularize the network. The complete adaptation process is illustrated in Algorithm \ref{algorithm:Deep domain adaptation algorithm (to be completed)}. After a predetermined iteration limit $N^{I}$ is reached, we obtain our final detection model on the target domain.
 
@@ -170,6 +175,18 @@ which can also interpreted as the Euclidean distance between the center of $\vec
 \caption{xxxxxxxxxxxxxx}
 \label{fig:elementwiselayer}
 \end{figure}
+
+\subsection{Detection Network}
+\label{section:Detection Network}
+The generic model \footnote{Proposed by Russel et al.} used in our adaptation architecture for source and target stream is an end to end detection network without any precomputed region proposals needed. It consists of a GoogLeNet \cite{szegedy2015going} for feature extraction and a RNN-based decoder for output of bounding box and corresponding confidence, as shown in Fig x(!). Firstly, the GoogLeNet model encode the image into a feature map (15x20x1024) of which each 1024 dimension vector are data representation of its receptive field corresponding to a subregion of the image. Then the RNN-based layers with batch size 300 will decode the data representation and sequentially predict 5 possible bounding boxes by the order of its corresponding confidence. Finally, all outputs are summarized to give final detection results. When trained with abundant samples from source domain, the obtained model has a high precision on target domain, however, its recall is low. Also, different from other detection network \cite{girshick2015fast,vu2015context}, which need precomputed proposals for classification and fine regression, this generic model directly predict bounding boxes with high confidence. Thus, negative instances may contain people and non-people predictions, and cannot be employed in adaptation training.
+
+\begin{figure}
+\centering
+\includegraphics[height=5cm]{images/reinspect.png}
+\caption{xxxxxxxxxxxxx}
+\label{fig:reinspect}
+\end{figure}
+
 
 \section{Experiment Results}
 \label{section:Experiment Results}
