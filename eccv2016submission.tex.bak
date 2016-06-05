@@ -70,6 +70,19 @@ There are also works on deep adaptation to construct scene-specific detector. Wa
 \section{Our Approach}
 \label{section:Our Approach}
 
+In this section, we introduce xxx. Iteration to auto-annotate. reasons for iteration: 1. unsupervised scenario. 2. avoid overfitting. problems in iteration, loss exceed gains. thus we added regularizer. regularizer is based on assumption xxx.
+
+the adaptation architecture xxx. source stream xxx. target stream xxx. basic model xxx. transform xxx.
+
+Denote xx as xxx..... we can define loss function as xxx. where xx is xxx.
+
+Iteration algorithm. 
+
+separately training. in initialization stage, xxx. In adaptation stage xxx.
+
+...
+
+
 In this section, we introduce our unsupervised domain adaptation architecture on the task of people detection in crowded scenes. We denote training samples from source domain as ${\bf X}^{S} = \{x^{S}_{i}\}^{N^{S}}_{i=1}$. For training samples on source domain, we have corresponding annotations $Y^{S} = \{y^{S}_{i}\}^{N^{S}}_{i=1}$ with $y^{S}_{i} = (b^{S}_{i},c^{S}_{i})$, where $b^{S}_{i} = (x,y,w,h) \in R^{4}$ is the bounding box location and $c^{S}_{i} \in \{0,1\}$ is the label indicating whether $x^{S}_{i}$ is a people instance. Also, we can denote the training samples on target domain  as ${\bf X}^{T,n} = \{x^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and corresponding annotations as $Y^{T,n} = \{y^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ with $y^{T,n}_{j} = (b^{T,n}_{j},c^{T,n}_{j})$ and $c^{T,n}_{j}\equiv 1$, where $n \in \{1,...,N^{I}\}$ is the index of adaptation iteration process. $N^{I}$ is the maximum number of adaptation iterations. Note that different from source domain, training set on target domain are auto-annotated samples with high confidence as people instance. Therefore, these auto-annotated data are all regarded as positive samples and equal amount of negative samples are randomly selected from target domain. During every adaptation iteration, the auto-annotation tool (also the target model) will be updated. Thus, the training samples for target domain at $n^{th}$ adaptation iteration may differ from that at $(n+1)^{th}$ adaptation iteration.
 
 The adaptation architecture of our approach consists of two streams -- source stream and target stream, as shown in Fig \ref{fig:streams}. Source steam takes samples from source domain as input, while target stream are trained by auto-annotated positive samples from target domain and negative samples from source domain. These two streams can utilize any deep detection network as their basic model, as well as their detection loss function as supervised loss functions of two streams. In our experiment, we use the detection network mentioned in Section \ref{section:Detection Network} as the basic model. For the purpose of unsupervised regularizer, the last full connected layers on both source and target model are transformed into two sub-layers -- element-wise multiply layer and sum layer, as mentioned in Section \ref{section:Element-wise Multiply Layer}.
@@ -93,16 +106,6 @@ where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}
 \label{fig:streams}
 \end{figure}
 
-\subsection{Detection Network}
-\label{section:Detection Network}
-The generic model \footnote{Proposed by Russel et al.} used in our adaptation architecture for source and target stream is an end to end detection network without any precomputed region proposals needed. It consists of a GoogLeNet \cite{szegedy2015going} for feature extraction and a RNN-based decoder for output of bounding box and corresponding confidence, as shown in Fig x(!). Firstly, the GoogLeNet model encode the image into a feature map (15x20x1024) of which each 1024 dimension vector are data representation of its receptive field corresponding to a subregion of the image. Then the RNN-based layers with batch size 300 will decode the data representation and sequentially predict 5 possible bounding boxes by the order of its corresponding confidence. Finally, all outputs are summarized to give final detection results. When trained with abundant samples from source domain, the obtained model has a high precision on target domain, however, its recall is low. Also, different from other detection network \cite{girshick2015fast,vu2015context}, which need precomputed proposals for classification and fine regression, this generic model directly predict bounding boxes with high confidence. Thus, negative instances may contain people and non-people predictions, and cannot be employed in adaptation training.
-
-\begin{figure}
-\centering
-\includegraphics[height=5cm]{images/reinspect.png}
-\caption{xxxxxxxxxxxxx}
-\label{fig:reinspect}
-\end{figure}
 
 \subsection{Iterative Algorithm}
 \label{Section:Iterative Algorithm}
@@ -172,6 +175,18 @@ which can also interpreted as the Euclidean distance between the center of $\vec
 \caption{xxxxxxxxxxxxxx}
 \label{fig:elementwiselayer}
 \end{figure}
+
+\subsection{Detection Network}
+\label{section:Detection Network}
+The generic model \footnote{Proposed by Russel et al.} used in our adaptation architecture for source and target stream is an end to end detection network without any precomputed region proposals needed. It consists of a GoogLeNet \cite{szegedy2015going} for feature extraction and a RNN-based decoder for output of bounding box and corresponding confidence, as shown in Fig x(!). Firstly, the GoogLeNet model encode the image into a feature map (15x20x1024) of which each 1024 dimension vector are data representation of its receptive field corresponding to a subregion of the image. Then the RNN-based layers with batch size 300 will decode the data representation and sequentially predict 5 possible bounding boxes by the order of its corresponding confidence. Finally, all outputs are summarized to give final detection results. When trained with abundant samples from source domain, the obtained model has a high precision on target domain, however, its recall is low. Also, different from other detection network \cite{girshick2015fast,vu2015context}, which need precomputed proposals for classification and fine regression, this generic model directly predict bounding boxes with high confidence. Thus, negative instances may contain people and non-people predictions, and cannot be employed in adaptation training.
+
+\begin{figure}
+\centering
+\includegraphics[height=5cm]{images/reinspect.png}
+\caption{xxxxxxxxxxxxx}
+\label{fig:reinspect}
+\end{figure}
+
 
 \section{Experiment Results}
 \label{section:Experiment Results}
