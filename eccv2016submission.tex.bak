@@ -70,18 +70,17 @@ There are also works on deep adaptation to construct scene-specific detector. Wa
 \section{Our Approach}
 \label{section:Our Approach}
 
-In this section, we introduce xxx. Iteration to auto-annotate. reasons for iteration: 1. unsupervised scenario. 2. avoid overfitting. problems in iteration, loss exceed gains. thus we added regularizer. regularizer is based on assumption xxx.
+In this section, we introduce our unsupervised domain adaptation architecture on the task of people detection in crowded scenes. Under the unsupervised setting, we use iteration algorithm to iteratively auto-annotate target samples and update target model. As the auto-annotated samples contain data error, the performance decline caused by false positive samples will exceed the performance boost resulting from true positive samples if the target model is trained only with supervised loss function. Therefore, an unsupervised regularizer is required to mitigate the influence from data error on target model. Based on the assumption that source domain and target domain should share the same feature space after feature extraction layers, we encode an unsupervised regularizer to make a constraint that the distribution of data representation on the element-wise multiply layer should be similar between source stream and target stream.
 
 the adaptation architecture xxx. source stream xxx. target stream xxx. basic model xxx. transform xxx.
 
 Denote xx as xxx..... we can define loss function as xxx. where xx is xxx.
 
-Iteration algorithm. 
+Iteration algorithm.
 
 separately training. in initialization stage, xxx. In adaptation stage xxx.
 
-...
-
+details about anno-annotation.
 
 In this section, we introduce our unsupervised domain adaptation architecture on the task of people detection in crowded scenes. We denote training samples from source domain as ${\bf X}^{S} = \{x^{S}_{i}\}^{N^{S}}_{i=1}$. For training samples on source domain, we have corresponding annotations $Y^{S} = \{y^{S}_{i}\}^{N^{S}}_{i=1}$ with $y^{S}_{i} = (b^{S}_{i},c^{S}_{i})$, where $b^{S}_{i} = (x,y,w,h) \in R^{4}$ is the bounding box location and $c^{S}_{i} \in \{0,1\}$ is the label indicating whether $x^{S}_{i}$ is a people instance. Also, we can denote the training samples on target domain  as ${\bf X}^{T,n} = \{x^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and corresponding annotations as $Y^{T,n} = \{y^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ with $y^{T,n}_{j} = (b^{T,n}_{j},c^{T,n}_{j})$ and $c^{T,n}_{j}\equiv 1$, where $n \in \{1,...,N^{I}\}$ is the index of adaptation iteration process. $N^{I}$ is the maximum number of adaptation iterations. Note that different from source domain, training set on target domain are auto-annotated samples with high confidence as people instance. Therefore, these auto-annotated data are all regarded as positive samples and equal amount of negative samples are randomly selected from target domain. During every adaptation iteration, the auto-annotation tool (also the target model) will be updated. Thus, the training samples for target domain at $n^{th}$ adaptation iteration may differ from that at $(n+1)^{th}$ adaptation iteration.
 
