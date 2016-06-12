@@ -81,21 +81,21 @@ The adaptation architecture of our approach consists of two streams -- source st
 \label{fig:streams}
 \end{figure}
 
-The loss function of adaptation architecture is composed of a supervised loss and an unsupervised regularizer. We denote training samples from source domain as ${\bf X}^{S} = \{x^{S}_{i}\}^{N^{S}}_{i=1}$. For training samples on source domain, we have corresponding annotations $Y^{S} = \{y^{S}_{i}\}^{N^{S}}_{i=1}$ with $y^{S}_{i} = (b^{S}_{i},c^{S}_{i})$, where $b^{S}_{i} = (x,y,w,h) \in R^{4}$ is the bounding box location and $c^{S}_{i} \in \{0,1\}$ is the label indicating whether $x^{S}_{i}$ is a people instance. Also, we can denote the training samples on target domain  as ${\bf X}^{T,n} = \{x^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and corresponding annotations as $Y^{T,n} = \{y^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ with $y^{T,n}_{j} = (b^{T,n}_{j},c^{T,n}_{j})$ and $c^{T,n}_{j}\equiv 1$, where $n \in \{1,...,N^{I}\}$ is the index of adaptation iteration process. $N^{I}$ is the maximum number of adaptation iterations.  We can formulate the combination of supervised loss and unsupervised regularizer as follows:
+The loss function of adaptation architecture is composed of a supervised loss and an unsupervised regularizer. We denote training samples from source domain as ${\bf X}^{S} = \{x^{S}_{i}\}^{N^{S}}_{i=1}$. For training samples on source domain, we have corresponding annotations $Y^{S} = \{y^{S}_{i}\}^{N^{S}}_{i=1}$ with $y^{S}_{i} = (b^{S}_{i},l^{S}_{i})$, where $b^{S}_{i} = (x,y,w,h) \in R^{4}$ is the bounding box location and $l^{S}_{i} \in \{0,1\}$ is the label indicating whether $x^{S}_{i}$ is a people instance. At $n^{th}$ adaptation iteration, we have two set of training samples, auto-annotated positive samples from target domain ${\bf X}^{T,n} = \{x^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and tantamount negative samples from source domain ${\bf X}^{S,n} = \{x^{S,n}_{k}\}^{N^{T,n}}_{k=1}$. Their corresponding annotations can be denoted as $Y^{T,n} = \{y^{T,n}_{j}\}^{N^{T,n}}_{j=1}$ and $Y^{S,n} = \{y^{S,n}_{k}\}^{N^{T,n}}_{k=1}$ with $y^{T,n}_{j} = (b^{T,n}_{j},l^{T,n}_{j}\equiv1,c^{T,n}_{j})$, and $y^{S,n}_{k} = (b^{S,n}_{k},l^{S,n}_{k}\equiv0)$, respectively. $c^{T,n}_{*}$ is the confidence given by auto-annotation tools and $N^{I}$ is the maximum number of adaptation iterations. Now we can formulate the combination of supervised loss and unsupervised regularizer as follows:
 \begin{eqnarray}
 % \nonumber to remove numbering (before each equation)
-  L(\theta^{T,n}|{\bf X}^{T,n},{\bf Y}^{T,n},{\bf X}^{S},\theta^{S}) &=& L_{S} + \alpha * L_{U} \\
- \nonumber  L_{S} &=&  \sum^{N^{T,n}}_{j=1}{( R(\theta^{T,n}|x^{T,n}_{j},b^{T,n}_{j})+C(\theta^{T,n}|x^{T,n}_{j},c^{T,n}_{j}) )} \\
-             &&+ \sum^{N^{T,n}}_{i=f(j)}{( R(\theta^{T,n}|x^{S}_{i},b^{S}_{i})+C(\theta^{T,n}|x^{S}_{i},c^{S}_{i}) )}\\
-  L_{U} &=& L_{EWM}(\theta^{T}|{\bf X}^{T},{\bf X}^{S},\theta^{S}) \label{Eq:lmmd}
+  L(\theta^{T,n}|{\bf X}^{T,n},{\bf Y}^{T,n},{\bf X}^{S,n},{\bf Y}^{S,n},{\bf X}^{S},\theta^{S}) = L_{S} + \alpha * L_{U} \\
+ \nonumber  L_{S} = \sum^{N^{T,n}}_{j=1}{\sigma(c^{T,n}_{j})* ( R(\theta^{T,n}|x^{T,n}_{j},b^{T,n}_{j})+C(\theta^{T,n}|x^{T,n}_{j},l^{T,n}_{j}) )} \\
+             + \sum^{N^{T,n}}_{k=1}{( R(\theta^{T,n}|x^{S,n}_{k},b^{S,n}_{k})+C(\theta^{T,n}|x^{S,n}_{k},l^{S,n}_{k}) )}\\
+  L_{U} = L_{EWM}(\theta^{T}|{\bf X}^{T},{\bf X}^{S},\theta^{S}) \label{Eq:lmmd}
 \end{eqnarray}
-where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}$ is the unsupervised regularizer part. $R(\cdot)$ is a regression loss for bounding box location, such as norm-1 loss, and $C(\cdot)$ is a classification loss for bounding box confidence, such as cross-entropy loss. $ f(\cdot)$ randomly returns an index under the condition that $x^{S}_{f(\cdot)}$ must be a negative sample. And $L_{EWM}(\cdot)$, to be introduced in Section \ref{section:Element-wise Multiply Layer}, is the MMD-based loss added on the element-wise multiply layer for unsupervised regularization. $\alpha$ is the coefficient balancing the effect of supervised and unsupervised loss.
+where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}$ is the unsupervised regularizer part. $\sigma(\cdot)$ is a step function to re-weight supervised loss of auto-annotated data. $R(\cdot)$ is a regression loss for bounding box location, such as norm-1 loss, and $C(\cdot)$ is a classification loss for bounding box confidence, such as cross-entropy loss. And $L_{EWM}(\cdot)$, to be introduced in Section \ref{section:Element-wise Multiply Layer}, is the MMD-based loss added on the element-wise multiply layer for unsupervised regularization. $\alpha$ is the coefficient balancing the effect of supervised and unsupervised loss.
 
 
 \subsection{Iterative Algorithm}
 \label{Section:Iterative Algorithm}
 
-There are two reasons to employ iterative algorithm. Firstly, auto-annotated data on target domain change for every adaptation iteration and new samples will be auto-annotated as positive instances. Compared to methods without iterative algorithm, it helps to avoid overfitting caused by lack of data. Besides, unsupervised regularizer performs better with more training data as it's a distribution based regularizer.
+Iterative algorithm is the training method of the target stream of our adaptation architecture. There are two reasons to employ iterative algorithm. Firstly, auto-annotated data on target domain vary for every adaptation iteration and new positive samples will be auto-annotated as training set. Compared to methods without iterative algorithm, it helps to avoid overfitting caused by lack of data. Besides, unsupervised regularizer performs better with more training data as it's a distribution based regularizer.
 
 There are two stages for iterative algorithm. Source stream and target stream are separately trained at different stages. At initialization stage, source model of source stream are trained under supervised loss function with abundant labelled data, ${\bf X}^{S}$, from source domain. After its convergence, the weights of source model $\theta^{S}$ are taken to initialize target stream. At adaptation stage, target model is trained by auto-annotated data under both supervised loss function and unsupervised regularizer. Note that we do not jointly train two streams at adaptation stage and the weights of source model stays static which is served as a distribution reference for unsupervised regularizer at adaptation stage. The complete adaptation process is illustrated in Algorithm \ref{algorithm:Deep domain adaptation algorithm (to be completed)}. After a predetermined iteration limit $N^{I}$ is reached, we obtain our final detection model on the target domain.
 
@@ -105,25 +105,26 @@ There are two stages for iterative algorithm. Source stream and target stream ar
 \begin{algorithmic}[1]
 \Procedure{Deep domain adaptation} {} \\
 \indent Train source model on source stream with abundant annotated data \\
-\indent Use well-trained source model on source stream to initialize model on target stream as $M_{0}$
+\indent Use well-trained source model on source stream to initialize target model on target stream as $M_{0}$
 \For{i = 0:$N^{I}$} \\
-\indent \indent $M_{i}$ generate "fake ground truth" Gi of target domain \\
-\indent \indent balbal \\
-\indent \indent balbabla \\
-\indent \indent Gi = Gi + random samples from source domain \\
-\indent \indent Take Gi as training data to upgrade $M_{i}$ into $M_{i+1}$
+\indent \indent $M_{i}$ generate auto-annotated positive samples ${\bf X}^{T,n}$ of target domain with ${\bf Y}^{T,n}$\\
+\indent \indent Randomly sampled negative instances ${\bf X}^{S,n}$ from source domain with ${\bf Y}^{S,n}$\\
+\indent \indent ${\bf X}^{n} = \{{\bf X}^{T,n}, {\bf X}^{S,n}\}$ \\
+\indent \indent ${\bf Y}^{n} = \{{\bf Y}^{T,n}, {\bf Y}^{S,n}\}$ \\
+\indent \indent Take (${\bf X}^{n}$, ${\bf Y}^{n}$) as training data to upgrade $M_{i}$ into $M_{i+1}$
 \EndFor \\
 \indent $M_{N^{I}}$: final model.
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
-Different from source domain, we use auto-annotation tools to auto-annotate people instances with high confidence as training set on target domain. At first iteration, we take source model as the auto-annotation tool. For subsequent adaptation iterations, updated target model from last adaptation iteration are utilized as the auto-annotation tool. During every adaptation iteration, the auto-annotation tool (also the target model) will be updated. Thus, the training samples for target domain at $n^{th}$ adaptation iteration may differ from that at $(n+1)^{th}$ adaptation iteration. 
+Different from source domain, we use auto-annotation tools to auto-annotate people instances with high confidence as training set on target domain. At first iteration, we take source model as the auto-annotation tool. For subsequent adaptation iterations, updated target model from last adaptation iteration are utilized as the auto-annotation tool. During every adaptation iteration, the auto-annotation tool (also the target model) will be updated. Thus, the training samples for target domain at $n^{th}$ adaptation iteration may differ from that at $(n+1)^{th}$ adaptation iteration.
 
-Note that these auto-annotated data are all regarded as positive samples. That is, we encourage the network to have more confidence on positive instances and stay conservative toward negative instances. This policy will no doubt resulting predictions of many non-people instance and impeding the further training when many non-people instances are regarded as people instances by the target model. To compensate for lack of negative instances, equal amount of negative samples are randomly selected from target domain, which are human annotated and can thus provide true negative samples.
+Note that these auto-annotated data are all regarded as positive samples. That is, we encourage the network to have more confidence on positive instances and stay conservative toward negative instances. This policy will no doubt resulting predictions of many non-people instance and impeding the further training when many non-people instances are regarded as people instances by the target model. To compensate for lack of negative instances, equal amount of negative samples are randomly selected from target domain, which are human annotated and can thus provide true negative samples. To further mitigate influence from data error in auto-annotated data, we will introduce an unsupervised regularizer in Section \ref{Section:Unsupervised weights regularizer on Element-wise Multiply Layer}.
 
 
 \subsection{Unsupervised weights regularizer on Element-wise Multiply Layer}
+\label{Section:Unsupervised weights regularizer on Element-wise Multiply Layer}
 
 \subsubsection{Element-wise Multiply Layer}
 \label{section:Element-wise Multiply Layer}
@@ -139,15 +140,13 @@ Inspired by this form, we separate the above formula into two sub-operations -- 
   M_{b,o,d} &=& F_{b,d} * C_{d,o} \\
   P_{b,o} &=& \sum_{d}{M_{b,o,d}}
 \end{eqnarray}
-where ${\bf M}_{(N^{B}\times N^{O}\times N^{D})} = [\vec{m}_{b,o}]$ is the parameter tensor of element-wise multiply operations. $\vec{m}_{b,o}$ is a vector with $N^{D}$ dimensions, which will be the basis of unsupervised regularizer. Finally, we can equivalent-transform the last full connected layer between the last feature vector layer and final outputs layer into element-wise multiply layer and sum layer. The transformed element-wise multiply layer is thus the last layer with parameters before output layers. Fig x (!) illustrates the transform.
+where ${\bf M}_{(N^{B}\times N^{O}\times N^{D})} = [\vec{m}_{b,o}]$ is the parameter tensor of element-wise multiply operations. $\vec{m}_{b,o}$ is a vector with $N^{D}$ dimensions, which will be the basis of unsupervised regularizer. Finally, we can equivalent-transform the last full connected layer between the last feature vector layer and final outputs layer into element-wise multiply layer and sum layer. The transformed element-wise multiply layer is thus the last layer with parameters before output layers. Fig \ref{fig:elementwiselayer} illustrates the transform.
 
 \begin{figure}
 \centering
-\includegraphics[height=4.5cm]{images/mmd.png}
-\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
-$x_i$ and $x_j$ ({\it left and right}) lead to the same summed estimate
-at $x_s$. }
-\label{fig:example}
+\includegraphics[height=6cm]{images/elementwiselayer.png}
+\caption{xxxxxxxxxxxxxx}
+\label{fig:elementwiselayer}
 \end{figure}
 
 \subsubsection{Unsupervised weights regularizer on Element-wise Multiply Layer}
@@ -159,10 +158,13 @@ which can also interpreted as the Euclidean distance between the center of $\vec
 
 \begin{figure}
 \centering
-\includegraphics[height=6cm]{images/elementwiselayer.png}
-\caption{xxxxxxxxxxxxxx}
-\label{fig:elementwiselayer}
+\includegraphics[height=4.5cm]{images/mmd.png}
+\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
+$x_i$ and $x_j$ ({\it left and right}) lead to the same summed estimate
+at $x_s$. }
+\label{fig:example}
 \end{figure}
+
 
 \subsection{Detection Network}
 \label{section:Detection Network}
