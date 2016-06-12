@@ -128,19 +128,19 @@ Note that these auto-annotated data are all regarded as positive samples. That i
 
 \subsubsection{Element-wise Multiply Layer}
 \label{section:Element-wise Multiply Layer}
-In deep neural network, the last feature vector layer are taken as an important data representation of input images. However, in this paper, we take one step further to focus on the last full connected layer which serves as an decoder to decode rich information contained in the last feature vector into final outputs. As source model are trained with abundant labelled data on source domain, the parameters of the last full connected layer are also well converged. We assume that a regularizer on the last full connected layer will achieve better results compared with the last feature vector layer. Firstly, denote the last feature vector, parameters of the last full connected layer and final outputs as ${\bf F}_{(N^{B}\times N^{D})}$, ${\bf C}_{(N^{D}\times N^{O})}$ and ${\bf P}_{(N^{B}\times N^{O})}$, respectively. The operation of full connected layer can be thus formulated as matrix multiply:
+In deep neural network, the last feature vector layer are taken as an important data representation of input images. However, in this paper, we take one step further to focus on the last full connected layer which serves as an decoder to decode rich information of the last feature vector into final outputs. As source model are trained with abundant labelled data on source domain, the parameters of the last full connected layer are also well converged. A regularizer on the last full connected layer can adjust all weights of the network compared with that on the last feature vector layer. Denote the last feature vector, weights of the last full connected layer and final outputs as ${\bf F}_{(1\times N^{D})}$, ${\bf C}_{(N^{D}\times N^{O})}$ and ${\bf P}_{(1\times N^{O})}$, respectively. $ N^{D}, N^{O}$ are the dimension of feature vector and the dimension of output layer, respectively. The operation of the full connected layer can be thus formulated as matrix multiply:
 \begin{eqnarray}
 % \nonumber to remove numbering (before each equation)
   {\bf P} &=& {\bf F}*{\bf C} \\
-  P_{b,o} &=&  \sum_{d}{F_{b,d}*K_{d,o}}
+  P_{o} &=&  \sum_{d}{F_{d}*C_{d,o}}
 \end{eqnarray}
 Inspired by this form, we separate the above formula into two sub-operations -- element-wise multiply and sum, which can be formulated as:
 \begin{eqnarray}
 % \nonumber to remove numbering (before each equation)
-  M_{b,o,d} &=& F_{b,d} * C_{d,o} \\
-  P_{b,o} &=& \sum_{d}{M_{b,o,d}}
+  \vec{m}_{o} &=& [F_{d} * C_{d,o}]^{N^{D}}_{d=1} \\
+  P_{o} &=& \sum{\vec{m}_{o}}
 \end{eqnarray}
-where ${\bf M}_{(N^{B}\times N^{O}\times N^{D})} = [\vec{m}_{b,o}]$ is the parameter tensor of element-wise multiply operations. $\vec{m}_{b,o}$ is a vector with $N^{D}$ dimensions, which will be the basis of unsupervised regularizer. Finally, we can equivalent-transform the last full connected layer between the last feature vector layer and final outputs layer into element-wise multiply layer and sum layer. The transformed element-wise multiply layer is thus the last layer with parameters before output layers. Fig \ref{fig:elementwiselayer} illustrates the transform.
+where ${\bf M}_{(N^{O}\times N^{D})} = [\vec{m}_{o}]$ is the intermediate results of element-wise multiply operations. $\vec{m}_{o}$ is a vector with $N^{D}$ dimensions, which will be the object of unsupervised regularizer. Finally, we can equivalent-transform the last full connected layer between the last feature vector layer and final outputs layer into element-wise multiply layer and sum layer. The transformed element-wise multiply layer is thus the last layer with weights before output layers. Fig \ref{fig:elementwiselayer} illustrates the transform.
 
 \begin{figure}
 \centering
@@ -149,12 +149,13 @@ where ${\bf M}_{(N^{B}\times N^{O}\times N^{D})} = [\vec{m}_{b,o}]$ is the param
 \label{fig:elementwiselayer}
 \end{figure}
 
-\subsubsection{Unsupervised weights regularizer on Element-wise Multiply Layer}
-In works [decaf][][], the last feature vector layer are regarded as the final representation of images. (how to introduce beyond sharing weights) In domain adaptation tasks, when generic deep model are trained with abundant data from source domain, the last element-wise multiply layer mentioned in Sec \ref{section:Element-wise Multiply Layer} also includes rich information leading to the final output. For the nodes in the output layer, inputs from element-wise multiply layers that will contribute to its value are not randomly decided. In this paper, we assume that the distribution of $\vec{m}_{b,o}$ of the last element-wise multiply layer on both source and target domain should be similar. In the last element-wise multiply layer, every dimension of $\vec{m}_{b,o}$ may contribute to the final output. However, as the old model on source domain are trained with abundant images, the distribution of $\vec{m}^{T}_{b,o}$ should be consistent compared with $\vec{m}^{S}_{b,o}$ of source domain when adapting deep network on target domain. We utilize MMD (maximum mean discrepancy) to encode the similarity of element-wise multiply layer of source domain and target domain:
+\subsubsection{Unsupervised regularizer on Element-wise Multiply Layer}
+
+This section introduces our unsupervised regularizer. As stated in Section \ref{Section:Iterative Algorithm}, there are false positive samples among auto-annotated data, which will mislead the network and result in worse performance. Thus, we designed an unsupervised regularizer to mitigate the influence. We have the assumption that the dimensions of element-wise multiply layer of the last full connected layer has well converged under the training of abundant source samples. Thus, when the tasks are similar, the distribution of data representations of element-wise multiply layer on source domain and target domain should also be similar. When we train with false positive samples, they are easier to mutate the distribution of data representations. This idea can be illustrated in Fig x(!), balabala.... Confining that the distribution of data representations between source and target domain to be similar helps to reduce the influence caused by data error to some extent. To encode this similarity, we utilize MMD (maximum mean discrepancy) to compute distance between distributions of element-wise multiply layer of source domain and target domain:
 \begin{equation}\label{equation:LMMD}
-  L_{MMD}(\theta^{T}|{\bf X}^{S},{\bf X}^{T},\theta^{S}) = \frac{1}{N^{O}} \sum^{N^{O}}_{o=1}{\| \frac{1}{N^{B}}\sum^{N^{B}}_{b=1}{\vec{m}^{T}_{b,o}} - \frac{1}{N^{B}}\sum^{N^{B}}_{b=1}{\vec{m}^{S}_{b,o}} {\|}^{2}  }
+  L_{EWM}(\theta^{T,n}|{\bf X}^{S},{\bf X}^{T,n},\theta^{S}) = \frac{1}{N^{O}} \sum^{N^{O}}_{o=1}{ \parallel \frac{\sum^{N^{T,n}}_{j=1}{(\vec{m}^{T,n}_{o}|x^{T,n}_{j})}}{N^{T,n}} - \frac{\sum^{N^{S}}_{i=1}{(\vec{m}^{S}_{o}|x^{S}_{i})}}{N^{S}} {\parallel}^{2}  }
 \end{equation}
-which can also interpreted as the Euclidean distance between the center of $\vec{m}^{T}_{b,o}$ and $\vec{m}^{S}_{b,o}$ across all output nodes. It's unpractical to get the distribution of the whole training set, while too few images cannot obtain a stable center for regularization. In our experiments, the $L_{MMD}(\cdot)$ loss is calculated for every batch. An example comparison of centers of $\vec{m}^{S}_{b_{i},o}$ and $\vec{m}^{S}_{b_{j},o}$ are shown in Fig x(1).
+which can also interpreted as the Euclidean distance between the center of $\vec{m}^{T,n}_{o}$ and $\vec{m}^{S}_{o}$ across all output dimensions. It's unpractical to get the distribution of the whole training set, while too few images cannot obtain a stable distribution for regularization. In our experiments, the $L_{EWM}(\cdot)$ loss is calculated for every batch. An example comparison of centers of $\vec{m}^{S}_{o}$ of different batches are shown in Fig x(1).
 
 \begin{figure}
 \centering
