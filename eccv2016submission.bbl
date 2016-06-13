@@ -113,6 +113,11 @@ Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
 \newblock Caffe: Convolutional architecture for fast feature embedding.
 \newblock arXiv preprint arXiv:1408.5093 (2014)
 
+\bibitem{tzeng2014deep}
+Tzeng, E., Hoffman, J., Zhang, N., Saenko, K., Darrell, T.:
+\newblock Deep domain confusion: Maximizing for domain invariance.
+\newblock arXiv preprint arXiv:1412.3474 (2014)
+
 \bibitem{krizhevsky2012imagenet}
 Krizhevsky, A., Sutskever, I., Hinton, G.E.:
 \newblock Imagenet classification with deep convolutional neural networks.

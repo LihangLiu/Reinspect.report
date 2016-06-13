@@ -97,11 +97,11 @@ where $L_{S}$ is supervised loss to learn the scene-specific detector and $L_{U}
 
 Iterative algorithm is the training method of the target stream of our adaptation architecture. There are two reasons to employ iterative algorithm. Firstly, auto-annotated data on target domain vary for every adaptation iteration and new positive samples will be auto-annotated as training set. Compared to methods without iterative algorithm, it helps to avoid overfitting caused by lack of data. Besides, unsupervised regularizer performs better with more training data as it's a distribution based regularizer.
 
-There are two stages for iterative algorithm. Source stream and target stream are separately trained at different stages. At initialization stage, source model of source stream are trained under supervised loss function with abundant labelled data, ${\bf X}^{S}$, from source domain. After its convergence, the weights of source model $\theta^{S}$ are taken to initialize target stream. At adaptation stage, target model is trained by auto-annotated data under both supervised loss function and unsupervised regularizer. Note that we do not jointly train two streams at adaptation stage and the weights of source model stays static which is served as a distribution reference for unsupervised regularizer at adaptation stage. The complete adaptation process is illustrated in Algorithm \ref{algorithm:Deep domain adaptation algorithm (to be completed)}. After a predetermined iteration limit $N^{I}$ is reached, we obtain our final detection model on the target domain.
+There are two stages for iterative algorithm. Source stream and target stream are separately trained at different stages. At initialization stage, source model of source stream are trained under supervised loss function with abundant labelled data, ${\bf X}^{S}$, from source domain. After its convergence, the weights of source model $\theta^{S}$ are taken to initialize target stream. At adaptation stage, target model is trained by auto-annotated data under both supervised loss function and unsupervised regularizer. Note that we do not jointly train two streams at adaptation stage and the weights of source model stays static which is served as a distribution reference for unsupervised regularizer at adaptation stage. The complete adaptation process is illustrated in Algorithm \ref{algorithm:Deep domain adaptation algorithm}. After a predetermined iteration limit $N^{I}$ is reached, we obtain our final detection model on the target domain.
 
 \begin{algorithm}
-\caption{Deep domain adaptation algorithm (to be completed)}
-\label{algorithm:Deep domain adaptation algorithm (to be completed)}
+\caption{Deep domain adaptation algorithm}
+\label{algorithm:Deep domain adaptation algorithm}
 \begin{algorithmic}[1]
 \Procedure{Deep domain adaptation} {} \\
 \indent Train source model on source stream with abundant annotated data \\
@@ -151,11 +151,11 @@ where ${\bf M}_{(N^{O}\times N^{D})} = [\vec{m}_{o}]$ is the intermediate result
 
 \subsubsection{Unsupervised regularizer on Element-wise Multiply Layer}
 
-This section introduces our unsupervised regularizer. As stated in Section \ref{Section:Iterative Algorithm}, there are false positive samples among auto-annotated data, which will mislead the network and result in worse performance. Thus, we designed an unsupervised regularizer to mitigate the influence. We have the assumption that the dimensions of element-wise multiply layer of the last full connected layer has well converged under the training of abundant source samples. Thus, when the tasks are similar, the distribution of data representations of element-wise multiply layer on source domain and target domain should also be similar. When we train with false positive samples, they are easier to mutate the distribution of data representations. This idea can be illustrated in Fig x(!), balabala.... Confining that the distribution of data representations between source and target domain to be similar helps to reduce the influence caused by data error to some extent. 
+This section introduces our unsupervised regularizer. As stated in Section \ref{Section:Iterative Algorithm}, there are false positive samples among auto-annotated data, which will mislead the network and result in worse performance. Thus, we designed an unsupervised regularizer to mitigate the influence. We have the assumption that the dimensions of element-wise multiply layer of the last full connected layer has well converged under the training of abundant source samples. Thus, when the tasks are similar, the distribution of data representations of element-wise multiply layer on source domain and target domain should also be similar. When we train with false positive samples, they are easier to mutate the distribution of data representations. This idea can be illustrated in Fig x(!), balabala.... Confining that the distribution of data representations between source and target domain to be similar helps to reduce the influence caused by data error to some extent.
 
 \begin{figure}
 \centering
-\includegraphics[height=9.5cm]{images/mmd.pdf}
+\includegraphics[height=5.5cm]{images/mmd.pdf}
 \caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
 $x_i$ and $x_j$ ({\it left and right}) lead to the same summed estimate
 at $x_s$. }
@@ -174,7 +174,7 @@ It's unpractical to get the distribution of the whole training set, while too fe
 
 \begin{figure}
 \centering
-\includegraphics[height=9.5cm]{images/mmd2.pdf}
+\includegraphics[height=6cm]{images/mmd2.pdf}
 \caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
 $x_i$ and $x_j$ ({\it left and right}) lead to the same summed estimate
 at $x_s$. }
@@ -189,7 +189,7 @@ The generic model \cite{stewart2015end} used in our adaptation architecture for 
 
 \begin{figure}
 \centering
-\includegraphics[height=5cm]{images/reinspect.png}
+\includegraphics[height=6cm]{images/reinspect.png}
 \caption{xxxxxxxxxxxxx}
 \label{fig:reinspect}
 \end{figure}
@@ -198,101 +198,107 @@ The generic model \cite{stewart2015end} used in our adaptation architecture for 
 \section{Experiment Results}
 \label{section:Experiment Results}
 
-In this section, we introduce experiment results on both surveillance applications and standard domain adaptation dataset. Our motivation for unsupervised domain adaptation method is for easier deployment of  We firstly evaluate our approach on video surveillance. Then we employ our approach to standard domain adaptation benchmarks on both supervised and unsupervised settings to demonstrate the effectiveness of our method.
-
-\begin{figure}
-\centering
-\includegraphics[height=9.5cm]{images/precisionrecallcurve.png}
-\caption{xxxx}
-\label{fig:precisionrecallcurve}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[height=6.5cm]{images/f1score.png}
-\caption{xxxx}
-\label{fig:precisionrecallcurve}
-\end{figure}
+In this section, we introduce our experiment results on both surveillance applications and the standard domain adaptation dataset. Our motivation for unsupervised domain adaptation method is easier deployment of deep detection model on surveillance situations. Thus, we firstly evaluate our approach on video surveillance. Then we employ our approach to standard domain adaptation benchmarks on both supervised and unsupervised settings to demonstrate the effectiveness of our method.
 
 \subsection{Domain Adaptation on Crowd Dataset}
 
 \subsubsection{Dataset and evaluation metrics}
-To show the effectiveness of our domain adaptation approach on people detection, we collected a dataset consisting of 3 target scenes for target domain. These three scenes contain 1308, 1213 and 331 unlabelled images. For each scene, 100 images are annotated for evaluation. Instead of labelling the whole body of a person, we labels the head of a person as bounding box during training. The motivation for labelling only people heads comes from detection of indoor people or in crowded scenes, where the body of a person may be invisible. The dataset for source domain are Brainwash Dataset released on http://d2.mpi-inf.mpg.de/datasets. Brainwash Dataset consists of over 11917 images from 3 crowded scenes. Examples of images from source and target domain are shown in Fig x(!).
+To show the effectiveness of our domain adaptation approach on people detection, we collected a dataset\footnote{Our dataset will be made available soon.} consisting of 3 target scenes for target domain. These three scenes contain 1308, 1213 and 331 unlabelled images. For each scene, 100 images are annotated for evaluation. Instead of labelling the whole body of a person, we labels the head of a person as bounding box during training. The motivation for labelling only people heads comes from detection of indoor people or in crowded scenes, where the body of a person may be invisible. The dataset for source domain are Brainwash Dataset\cite{stewart2015end}. Brainwash Dataset consists of over 11917 images from 3 crowded scenes.
 
-Our evaluation metrics for detection uses the protocol defined in PASCAL VOC \cite{everingham2015pascal}. To judge a predicted bounding box whether correctly matches a ground truth bounding box, their intersection over their union must exceed 50\%. And Multiple detections of the same ground truth bounding box are regarded as one correct prediction. We plot the precision-recall curve in Fig x(!). Also, the F1 score $F1 = 2*precision*recall/(precision+recall)$ during the adaptation process are also shown in Fig x(!).
-
-
+Our evaluation metrics for detection uses the protocol defined in PASCAL VOC \cite{everingham2015pascal}. To judge a predicted bounding box whether correctly matches a ground truth bounding box, their intersection over their union must exceed 50\%. And Multiple detections of the same ground truth bounding box are regarded as one correct prediction. For overall performance evaluation, the F1 score $F1 = 2*precision*recall/(precision+recall)$ are utilized. Higher F1 score means better performance. At the same time, the precision-recall curve are also plotted.
 
 \subsubsection{Experimental settings}
-We use deep learning framework Caffe \cite{jia2014caffe} as the adaptation architecture of our approach. During the adaptation, we set learning rate as 0.01 and momentum as 0.5. At initialization stage, GoogLeNet weights are firstly used to initialize source model of source stream, while parameters in RNN layers are randomly initialized from a uniform distribution. For each iteration, 100 auto-annotated images from target domain and 1000 annotated images from source domain are alternatively used for training. The outputs of our detection network contains bounding box locations and corresponding confidence, thus there are two full connected layers between the last feature vector layer and the final outputs. Experiments of unsupervised regularizer on element-wise multiply layer for bounding box regression have no additional improvement on the performance when regularizer on element-wise multiply layer for box confidence classification are added already. Our approach on domain adaptation are executed separately in the 3 target scenes.
+We use deep learning framework Caffe \cite{jia2014caffe} as the adaptation architecture of our approach. During the adaptation, we set learning rate as 0.01 and momentum as 0.5. At initialization stage, GoogLeNet weights are firstly used to initialize source model of source stream, while parameters in RNN layers are randomly initialized from a uniform distribution. For each iteration, 100 auto-annotated images from target domain and 100 annotated images from source domain are alternatively used for training. The outputs of our detection network include bounding box locations and corresponding confidence, thus there are two full connected layers between the last feature vector layer and the final outputs. In our experiments, when unsupervised regularizer on the element-wise multiply layer predicting box confidence are added already, unsupervised regularizer on element-wise multiply layer predicting bounding box locations have little performance improvement. Experiments on 3 target scenes are executed separately.
+
+\begin{figure}
+\centering
+\includegraphics[height=6cm]{images/pr_curve.pdf}
+\caption{xxxx}
+\label{fig:pr_curve}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[height=5.5cm]{images/f1_score.pdf}
+\caption{xxxx}
+\label{fig:f1_score}
+\end{figure}
 
 \subsubsection{Comparison with baseline methods}
-To demonstrate the effectiveness of our approach, 4 methods are compared with method 4 as our final approach:
+To demonstrate the effectiveness of our approach, 5 methods are compared among which method $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$ is our final approach:
 \begin{description}
-  \item[$L_{S}$] Only auto-labeled samples on target domain are used for training, and without any unsupervised regularizer.
-  \item[$L_{S}+L_{FV}$] Both auto-labeled images from target domain and labeled images from source domain are alternately sampled for training, with MMD regularizer on last feature vector as unsupervised weights regularizer.
-  \item[$L_{S}+L_{EWM}$] Both auto-labeled images from target domain and labeled images from source domain are alternately sampled for training, with MMD regularizer on last element-wise multiply layer as unsupervised weights regularizer.
+  \item[$L_{S}({\bf X}^{S})$] Source model only trained on source domain.
+  \item[$L_{S}({\bf X}^{T,n})$] Only auto-labeled samples on target domain are used for training, and without any unsupervised regularizer.
+  \item[$L_{S}({\bf X}^{T,n})+L_{EWM}$] Only auto-labeled samples on target domain are used for training, with unsupervised MMD regularizer added on last element-wise multiply layer.
+  \item[$L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$\cite{tzeng2014deep}] Both auto-labeled images from target domain and labeled images from source domain are alternately sampled for training, with unsupervised MMD regularizer added on last feature vector layer.
+  \item[$L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$] Both auto-labeled images from target domain and labeled images from source domain are alternately sampled for training, with unsupervised MMD regularizer added on last element-wise multiply layer.
 \end{description}
-\begin{enumerate}
-\item Only auto-labeled samples on target domain are used for training, and without any unsupervised regularizer.
-\item Only auto-labeled samples on target domain are used for training, with MMD regularizer on last element-wise multiply layer as unsupervised weights regularizer.
-\item Both auto-labeled images from target domain and labeled images from source domain are alternately sampled for training, with MMD regularizer on last feature vector as unsupervised weights regularizer.
-\item Both auto-labeled images from target domain and labeled images from source domain are alternately sampled for training, with MMD regularizer on last element-wise multiply layer as unsupervised weights regularizer.
-\end{enumerate}
-Fig x(!) plots the precision-recall curve of the above comparison methods in target scene 1). Also, the F1 score changes of every iteration during adaptation process are also depicted in Fig x(!). Table x(!) gives concrete precision and recall value of the 4 comparison methods on three target scenes when the F1 scores are at their highest. Examples of adaptation results are shown in Fig x(!).
+Fig \ref{fig:pr_curve} plots the precision-recall curve of the above comparison methods in target scene 1. Also, the F1 score changes of every adaptation iteration are also depicted in Fig \ref{fig:f1_score}. Table \ref{table:detection results} gives concrete precision and recall value of the 5 comparison methods on three target scenes when the F1 scores are at their highest. Examples of adaptation results are shown in Fig \ref{fig:detectionresult}.
 
 \begin{table}
 \centering
+\caption{Detection results of 5 compared methods on 3 target scenes} \label{table:detection results}
 \begin{tabular}{l  c c c  c  c c c  c  c c c}
   \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
     &   \multicolumn{3}{c}{Scene 1}   & & \multicolumn{3}{c}{Scene 2} & &  \multicolumn{3}{c}{Scene 3}   \\
    \cline{2-4} \cline{6-8} \cline{10-12}
-    & ~~1-Pr~~ & ~~Re~~ & ~~F1~~ & & ~~1-Pr~~ & ~~Re~~ & ~~F1~~ & & ~~1-Pr~~ & ~~Re~~ & ~~F1~~\\
+    & ~1-Pr~ & ~Re~ & ~F1~ &  & ~1-Pr~ & ~Re~ & ~F1~ &  & ~1-Pr~ & ~Re~ & ~F1~\\
   \hline
-  method 0~~ & 0.101 & 0.187 & 0.309 & ~~ & 0.015 & 0.683 & 0.807 & ~~ & 0.035 & 0.412 & 0.577 \\
-  method 1~~ & 0.245 & 0.408 & 0.530 & ~~ & 0.632 & 0.905 & 0.524 & ~~ & 0.176 & 0.778 & 0.800 \\
-  method 2~~ & 0.284 & 0.476 & 0.572 & ~~ & 0.012 & 0.837 & {\bf 0.906} & ~~ & 0.078 & 0.653 & 0.764 \\
-  method 3~~ & 0.109 & 0.496 & 0.637 & ~~ & 0.002 & 0.721 & 0.838 & ~~ & 0.044 & 0.611 & 0.746 \\
-  method 4~~ & 0.140 & 0.530 & {\bf 0.656} & ~~ & 0.006 & 0.811 & 0.893 & ~~ & 0.097 & 0.778 & {\bf 0.836} \\
+  $L_{S}({\bf X}^{S})$ & 0.101 & 0.187 & 0.309 &  & 0.015 & 0.683 & 0.807 &  & 0.035 & 0.412 & 0.577 \\
+  $L_{S}({\bf X}^{T,n})$ & 0.245 & 0.408 & 0.530 &  & 0.632 & 0.905 & 0.524 &  & 0.176 & 0.778 & 0.800 \\
+  $L_{S}({\bf X}^{T,n})+L_{EWM}$ & 0.284 & 0.476 & 0.572 &  & 0.012 & 0.837 & {\bf 0.906} &  & 0.078 & 0.653 & 0.764 \\
+  $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$\cite{tzeng2014deep} & 0.109 & 0.496 & 0.637 &  & 0.002 & 0.721 & 0.838 &  & 0.044 & 0.611 & 0.746 \\
+  $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$ & 0.140 & 0.530 & {\bf 0.656} &  & 0.006 & 0.811 & 0.893 &  & 0.097 & 0.778 & {\bf 0.836} \\
   \hline
 \end{tabular}
 \end{table}
 
 \subsubsection{Performance evaluation}
-From the Table x(!) and Fig x(1), we have the following observations:
+From the Table \ref{table:detection results}, we have the following observations:
 \begin{itemize}
-  \item The recall values of method 1,2,3,4, which all utilized iterative algorithm to upgrade the target model, are larger than that of method 0, which are source model trained on source domain. This implies the effectiveness of our iterative algorithm in auto-annotation and iterative training.
-  \item Compared with method 1, method 2 has higher F1 score. Their difference on whether a MMD regularizer are added into loss function demonstrates that our unsupervised regularizer can suppress data error and thus boost the final recall.
-  \item Method 4 has both higher precision and higher recall than method 2, which demonstrates the effectiveness of additional samples from source domain during adaptation process.
-  \item Compared with method 3, the recall of method 4 are further boosted. This results from the transformed element-wise multiply layer which provided better regularization effect on the target model.
+    \item Compared to method $L_{S}({\bf X}^{S})$, the recall values of other methods, which all utilize iterative algorithm for training, are explicitly larger. This implies the effectiveness of our iterative algorithm on boosting recall.
+    \item The average F1 score of $L_{S}({\bf X}^{T,n})+L_{EWM}$ are larger than that of method $L_{S}({\bf X}^{T,n})$. Also, the average (1-precision) of $L_{S}({\bf X}^{T,n})+L_{EWM}$ is far smaller. Their difference in whether the unsupervised regularizer is added into loss function demonstrates that our unsupervised regularizer can mitigate the influence of data noise and thus boost F1 score.
+    \item Compared to method $L_{S}({\bf X}^{T,n})+L_{EWM}$, the average F1 score of method $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$ is higher. This demonstrate the effectiveness of negative source samples added into the training set during adaptation process.
+    \item Compared to method $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$, the recall values of method $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$ are further increased. This shows that unsupervised regularizer added on the element-wise layer will provide better regularizer effect compared to that on the feature vector layer.
+    \item Our final method $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$ achieves best results on target scene 1 and target scene 2. The performance on target scene 2 are rather close to the best result, which may result from large discrepancy of background between source and target domain. 
 \end{itemize}
 
+\begin{figure}
+\centering
+\includegraphics[height=13cm]{images/detectionresult.png}
+\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
+$x_i$ and $x_j$ ({\it left and right}) }
+\label{fig:detectionresult}
+\end{figure}
 
 
 \subsection{Domain Adaptation on Standard Classification Benchmark}
 
+In order to further demonstrate the effectiveness and generalization of our adaptation architecture, we test our method on standard domain adaptation benchmark Office dataset\cite{saenko2010adapting}.
+
 \subsubsection{Office dataset}
-The Office dataset \cite{saenko2010adapting} comprises 31 categories of objects from 3 domains (Amazon, DSLR, Webcam). Example images are depicted in Fig. x(!). As Amazon domain contains 2817 labelled images, which is the largest, we take it as source domain and Webcam domain as target domain. We follow the standard protocol for both supervised and unsupervised settings. Specifically, for supervised domain adaptation, we use 20 randomly sampled images with labels for each category as training data for Amazon domain. When evaluate on unsupervised domain adaptation, 3 labelled images from target domain are additional selected for each class. For both settings, the rest of images on target domain are used for evaluation.
+The Office dataset comprises 31 categories of objects from 3 domains (Amazon, DSLR, Webcam). Example images are depicted in Fig. \ref{fig:officeimages}. As Amazon domain contains 2817 labelled images, which is the largest, we take it as source domain and Webcam domain as target domain. We follow the standard protocol for both supervised and unsupervised settings. Specifically, for supervised domain adaptation, we use 20 randomly sampled images with labels for each category as training data for Amazon domain. When evaluate on unsupervised domain adaptation, 3 labelled images from target domain are additional selected for each class. For both settings, the rest of images on target domain are used for evaluation.
 
 \begin{figure}
 \centering
 \includegraphics[height=4cm]{images/officeimages.png}
 \caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
 $x_i$ and $x_j$ ({\it left and right}) }
-\label{fig:example}
+\label{fig:officeimages}
 \end{figure}
 
 \subsubsection{Experimental settings and network design}
-On supervised setting, we reused the architecture in people detection. We utilize AlexNet \cite{krizhevsky2012imagenet} as the generic model of both streams. Firstly, we train the source model on source stream with provided training data from Amazon domain. Then iterative algorithm mentioned in Sec \ref{Section:Iterative Algorithm} are utilized for adaptation. The auto-labelling tool takes images on target domain with confidence exceeding 0.9 as training data for next iteration. The difference is besides auto-labelled images on target domain, 3 human labelled images for each class are also included as training data for target model. For each iteration, 100 images are randomly sampled from training data. The unsupervised MMD regularizer added on the element-wise multiply layer transformed from the last full connect layer of target model set the coefficient value $\alpha$ as 10 on Eq \ref{Eq:lmmd}, the same as that in people detection task.
+On supervised setting, we reused the architecture in people detection. We utilize AlexNet \cite{krizhevsky2012imagenet} as the generic model of both streams. Firstly, we train the source model on source stream with provided training data from Amazon domain. Then iterative algorithm mentioned in Sec \ref{Section:Iterative Algorithm} are utilized for adaptation. The difference is, besides auto-labelled images on target domain 3 human labelled images for each class are also included as training data for target model. For each iteration, 100 images are randomly sampled from training data. The unsupervised MMD regularizer is added on the element-wise multiply layer transformed from the last full connect layer of target model. We set the coefficient value $\alpha$ as 0.05 on Eq \ref{Eq:lmmd}.
 
 We use the same experimental setting for our unsupervised adaptation, except that at adaptation stage, no human labelled images can be added into the training set.
 \subsubsection{Performance evaluation}
-In Table x(!), we compare our approach with other six recently published works in both supervised and unsupervised settings. The outstanding performance on both settings confirms the effectiveness of our iterative algorithm and MMD regularizer on the element-wise multiply layer transformed from the last full connect layer.
+In Table \ref{table:office}, we compare our approach with other seven recently published works in both supervised and unsupervised settings. The outstanding performance on both settings confirms the effectiveness of our iterative algorithm and MMD regularizer on the element-wise multiply layer transformed from the last full connect layer.
 
 
 \begin{table}
 \centering
+\caption{Multi-class accuracy evaluation on Office dataset with supervised and unsupervised settings.} \label{table:office}
 \begin{tabular}{l c c}
   \hline
   % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
@@ -308,8 +314,8 @@ In Table x(!), we compare our approach with other six recently published works i
   DLID \cite{chopra2013dlid}& 51.9 & 26.1 \\
   DeCAF${}_{6}$S \cite{donahue2013decaf} & 80.7 & 52.2 \\
   DaNN \cite{ghifary2014domain}& 53.6 & 35.0 \\
+  DDC\cite{tzeng2014deep} & 84.1 & 59.4 \\
   \hline
-  Ours & {\bf 84.3} & {\bf 66.3} \\
   Ours & {\bf 85.4} & {\bf 69.3} \\
   \hline
 \end{tabular}
@@ -321,13 +327,7 @@ In Table x(!), we compare our approach with other six recently published works i
 
 The paper ends with a conclusion.
 
-\begin{figure}
-\centering
-\includegraphics[height=13cm]{images/detectionresult.png}
-\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
-$x_i$ and $x_j$ ({\it left and right}) }
-\label{fig:example}
-\end{figure}
+
 
 \bibliographystyle{splncs}
 \bibliography{egbib}

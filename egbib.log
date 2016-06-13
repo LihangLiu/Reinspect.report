@@ -1,0 +1,49 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdftex 2016.6.14)  14 JUN 2016 00:25
+entering extended mode
+**D:/Course/graduation*project/ECCV2016*Workshop/eccv2016kit/egbib.bib
+("D:/Course/graduation project/ECCV2016 Workshop/eccv2016kit/egbib.bib"
+Overfull \hbox (14.88394pt too wide) in paragraph at lines 1--33
+\tenrm ECCV 2014, pages=472--487, year=2014, pub-lisher=Springer  @in-col-lec-t
+ion-saenko2010adapting, ti-tle=Adapting|
+
+\hbox(6.94444+1.94444)x469.75499, glue set - 1.0
+.\tenrm E
+.\tenrm C
+.\tenrm C
+.\tenrm V
+.\glue 3.33333 plus 1.66498 minus 1.11221
+.etc.
+
+
+Overfull \hbox (18.60698pt too wide) in paragraph at lines 43--53
+[]\tenrm @articlewang2014scene, title=Scene-specific pedes-trian de-tec-tion fo
+r static video surveil-lance, au-thor=Wang,|
+
+\hbox(6.94444+1.94444)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm @
+.\tenrm a
+.\tenrm r
+.\tenrm t
+.etc.
+
+
+Overfull \hbox (27.19046pt too wide) in paragraph at lines 71--78
+[]\tenrm @inproceedingshuang2006correcting, ti-tle=Correcting sam-ple se-lec-ti
+on bias by un-la-beled data, au-thor=Huang,|
+
+\hbox(6.94444+1.94444)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+.\tenrm @
+.\tenrm i
+.\tenrm n
+.\tenrm p
+.etc.
+
+)
+*
+! Emergency stop.
+<*> ...ect/ECCV2016*Workshop/eccv2016kit/egbib.bib
+                                                  
+End of file on the terminal!
+
