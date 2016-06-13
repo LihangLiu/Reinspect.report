@@ -76,6 +76,11 @@ Pishchulin, L., Jain, A., Wojek, C., Andriluka, M., Thorm{\"a}hlen, T.,
 \newblock In: Computer Vision and Pattern Recognition (CVPR), 2011 IEEE
   Conference on, IEEE (2011)  1473--1480
 
+\bibitem{stewart2015end}
+Stewart, R., Andriluka, M.:
+\newblock End-to-end people detection in crowded scenes.
+\newblock arXiv preprint arXiv:1506.04878 (2015)
+
 \bibitem{szegedy2015going}
 Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D.,
   Vanhoucke, V., Rabinovich, A.:
