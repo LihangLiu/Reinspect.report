@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.27)  13 JUN 2016 15:16
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.27)  13 JUN 2016 15:44
 entering extended mode
 **C:/New*Dist*Assumption/Graduation*Project/ECCV2016-Workshop*on*Crowd*Understa
 nding/Reinspect.report/eccv2016submission.tex
@@ -431,27 +431,28 @@ Overfull \hbox (1.1826pt too wide) in paragraph at lines 47--48
 main adap-ta-tion bench-
  []
 
-[2] [3] <images/streams.png, id=19, 764.1348pt x 460.6008pt>
+[2] [3] <images/streams.png, id=19, 765.0984pt x 459.1554pt>
 File: images/streams.png Graphic file (type png)
 
 <use images/streams.png>
 Package pdftex.def Info: images/streams.png used on input line 79.
-(pdftex.def)             Requested size: 306.81447pt x 184.9429pt.
+(pdftex.def)             Requested size: 308.18204pt x 184.9429pt.
  [4 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
 standing/Reinspect.report/images/streams.png>] [5]
-[6] <images/elementwiselayer.png, id=43, 944.8098pt x 610.9224pt>
+[6] <images/elementwiselayer.png, id=42, 945.2916pt x 610.9224pt>
 File: images/elementwiselayer.png Graphic file (type png)
 
 <use images/elementwiselayer.png>
 Package pdftex.def Info: images/elementwiselayer.png used on input line 147.
-(pdftex.def)             Requested size: 264.01152pt x 170.71652pt.
+(pdftex.def)             Requested size: 264.14615pt x 170.71652pt.
  [7 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
 standing/Reinspect.report/images/elementwiselayer.png>] <images/mmd.pdf, id=51,
- 614.295pt x 794.97pt>
+ 601.24625pt x 488.82625pt>
 File: images/mmd.pdf Graphic file (type pdf)
- <use images/mmd.pdf>
+
+<use images/mmd.pdf>
 Package pdftex.def Info: images/mmd.pdf used on input line 158.
-(pdftex.def)             Requested size: 208.87628pt x 270.30118pt.
+(pdftex.def)             Requested size: 332.46626pt x 270.30118pt.
 
 Overfull \hbox (0.38182pt too wide) detected at line 168
 \OML/cmm/m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 j\OT1
@@ -461,21 +462,21 @@ T1/cmr/m/n/10 ) = [] [] []
 
 [8 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unders
 tanding/Reinspect.report/images/mmd.pdf>]
-<images/mmd2.pdf, id=61, 614.295pt x 794.97pt>
+<images/mmd2.pdf, id=63, 600.2425pt x 485.815pt>
 File: images/mmd2.pdf Graphic file (type pdf)
  <use images/mmd2.pdf>
 Package pdftex.def Info: images/mmd2.pdf used on input line 177.
-(pdftex.def)             Requested size: 208.87628pt x 270.30118pt.
+(pdftex.def)             Requested size: 333.96283pt x 270.30118pt.
  [9 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
 standing/Reinspect.report/images/mmd2.pdf>]
-<images/reinspect.png, id=70, 1131.2664pt x 465.4188pt>
+<images/reinspect.png, id=74, 1131.2664pt x 465.4188pt>
 File: images/reinspect.png Graphic file (type png)
 
 <use images/reinspect.png>
 Package pdftex.def Info: images/reinspect.png used on input line 192.
 (pdftex.def)             Requested size: 345.78664pt x 142.26378pt.
 
-<images/precisionrecallcurve.png, id=71, 464.4853pt x 408.77719pt>
+<images/precisionrecallcurve.png, id=75, 464.4853pt x 408.77719pt>
 File: images/precisionrecallcurve.png Graphic file (type png)
 
 <use images/precisionrecallcurve.png>
@@ -483,7 +484,7 @@ Package pdftex.def Info: images/precisionrecallcurve.png used on input line 205
 .
 (pdftex.def)             Requested size: 307.1566pt x 270.30118pt.
 
-<images/f1score.png, id=72, 658.71094pt x 344.78813pt>
+<images/f1score.png, id=76, 658.71094pt x 344.78813pt>
 File: images/f1score.png Graphic file (type png)
 
 <use images/f1score.png>
@@ -500,7 +501,7 @@ aduation Project/ECCV2016-Workshop on Crowd Understanding/Reinspect.report/imag
 es/precisionrecallcurve.png (PNG copy)> <C:/New Dist Assumption/Graduation Proj
 ect/ECCV2016-Workshop on Crowd Understanding/Reinspect.report/images/f1score.pn
 g (PNG copy)>] [12] [13]
-<images/officeimages.png, id=87, 493.845pt x 164.11313pt>
+<images/officeimages.png, id=91, 493.845pt x 164.11313pt>
 File: images/officeimages.png Graphic file (type png)
 
 <use images/officeimages.png>
@@ -508,7 +509,7 @@ Package pdftex.def Info: images/officeimages.png used on input line 280.
 (pdftex.def)             Requested size: 342.47902pt x 113.81102pt.
  [14 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unde
 rstanding/Reinspect.report/images/officeimages.png>] <images/detectionresult.pn
-g, id=92, 1047.915pt x 1178.4828pt>
+g, id=96, 1047.915pt x 1178.4828pt>
 File: images/detectionresult.png Graphic file (type png)
 
 <use images/detectionresult.png>
@@ -556,9 +557,9 @@ mss8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/CTEX/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/type1/public
 /amsfonts/cm/cmsy7.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb
 ><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on eccv2016submission.pdf (17 pages, 10396118 bytes).
+Output written on eccv2016submission.pdf (17 pages, 10363188 bytes).
 PDF statistics:
- 174 PDF objects out of 1000 (max. 8388607)
+ 178 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
