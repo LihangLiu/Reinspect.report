@@ -56,6 +56,13 @@ Mesnil, G., Dauphin, Y., Glorot, X., Rifai, S., Bengio, Y., Goodfellow, I.J.,
   approach.
 \newblock ICML Unsupervised and Transfer Learning \textbf{27} (2012)  97--110
 
+\bibitem{pishchulin2011learning}
+Pishchulin, L., Jain, A., Wojek, C., Andriluka, M., Thorm{\"a}hlen, T.,
+  Schiele, B.:
+\newblock Learning people detection models from few training samples.
+\newblock In: Computer Vision and Pattern Recognition (CVPR), 2011 IEEE
+  Conference on, IEEE (2011)  1473--1480
+
 \bibitem{gong2013connecting}
 Gong, B., Grauman, K., Sha, F.:
 \newblock Connecting the dots with landmarks: Discriminatively learning
@@ -69,12 +76,10 @@ Ghifary, M., Kleijn, W.B., Zhang, M.:
 \newblock In: PRICAI 2014: Trends in Artificial Intelligence.
 \newblock Springer (2014)  898--904
 
-\bibitem{pishchulin2011learning}
-Pishchulin, L., Jain, A., Wojek, C., Andriluka, M., Thorm{\"a}hlen, T.,
-  Schiele, B.:
-\newblock Learning people detection models from few training samples.
-\newblock In: Computer Vision and Pattern Recognition (CVPR), 2011 IEEE
-  Conference on, IEEE (2011)  1473--1480
+\bibitem{tzeng2014deep}
+Tzeng, E., Hoffman, J., Zhang, N., Saenko, K., Darrell, T.:
+\newblock Deep domain confusion: Maximizing for domain invariance.
+\newblock arXiv preprint arXiv:1412.3474 (2014)
 
 \bibitem{stewart2015end}
 Stewart, R., Andriluka, M.:
@@ -88,18 +93,6 @@ Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D.,
 \newblock In: Proceedings of the IEEE Conference on Computer Vision and Pattern
   Recognition. (2015)  1--9
 
-\bibitem{girshick2015fast}
-Girshick, R.:
-\newblock Fast r-cnn.
-\newblock In: Proceedings of the IEEE International Conference on Computer
-  Vision. (2015)  1440--1448
-
-\bibitem{vu2015context}
-Vu, T.H., Osokin, A., Laptev, I.:
-\newblock Context-aware cnns for person head detection.
-\newblock In: Proceedings of the IEEE International Conference on Computer
-  Vision. (2015)  2893--2901
-
 \bibitem{everingham2015pascal}
 Everingham, M., Eslami, S.A., Van~Gool, L., Williams, C.K., Winn, J.,
   Zisserman, A.:
@@ -112,11 +105,6 @@ Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
   Guadarrama, S., Darrell, T.:
 \newblock Caffe: Convolutional architecture for fast feature embedding.
 \newblock arXiv preprint arXiv:1408.5093 (2014)
-
-\bibitem{tzeng2014deep}
-Tzeng, E., Hoffman, J., Zhang, N., Saenko, K., Darrell, T.:
-\newblock Deep domain confusion: Maximizing for domain invariance.
-\newblock arXiv preprint arXiv:1412.3474 (2014)
 
 \bibitem{krizhevsky2012imagenet}
 Krizhevsky, A., Sutskever, I., Hinton, G.E.:

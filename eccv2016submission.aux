@@ -8,58 +8,59 @@
 \citation{saenko2010adapting,kulis2011you}
 \citation{gopalan2011domain}
 \citation{mesnil2012unsupervised}
-\citation{huang2006correcting,gretton2009covariate,gong2013connecting}
-\citation{ghifary2014domain}
 \citation{wang2014scene}
 \citation{zeng2014deep}
 \citation{hattori2015learning}
 \citation{pishchulin2011learning}
+\citation{huang2006correcting,gretton2009covariate,gong2013connecting,ghifary2014domain}
+\citation{tzeng2014deep}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Relate Work}{3}}
 \newlabel{section:Relate Work}{{2}{3}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Our Approach}{3}}
 \newlabel{section:Our Approach}{{3}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces xxxxxxxxxxxxxxxxxxxxxxxxx}}{4}}
-\newlabel{fig:streams}{{1}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Loss function for the target stream}{4}}
+\newlabel{Section:Loss function for the target stream}{{3.1}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The adaptation architecture consists of three parts, the source stream, the stream and an unsupervised regularizer. The last full connected layers of both source and target stream are transformed into element-wise layer and sum layer for the purpose of the unsupervised regularizer. Best view in colors.}}{5}}
+\newlabel{fig:streams}{{1}{5}}
 \newlabel{Eq:lmmd}{{3}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Iterative Algorithm}{5}}
-\newlabel{Section:Iterative Algorithm}{{3.1}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Iterative Algorithm}{5}}
+\newlabel{Section:Iterative Algorithm}{{3.2}{5}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Deep domain adaptation algorithm}}{6}}
 \newlabel{algorithm:Deep domain adaptation algorithm}{{1}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Unsupervised weights regularizer on Element-wise Multiply Layer}{6}}
-\newlabel{Section:Unsupervised weights regularizer on Element-wise Multiply Layer}{{3.2}{6}}
-\newlabel{section:Element-wise Multiply Layer}{{3.2}{6}}
-\@writefile{toc}{\contentsline {subsubsection}{Element-wise Multiply Layer}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces xxxxxxxxxxxxxx}}{7}}
-\newlabel{fig:elementwiselayer}{{2}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Unsupervised weights regularizer on Element-wise Multiply Layer}{7}}
+\newlabel{Section:Unsupervised weights regularizer on Element-wise Multiply Layer}{{3.3}{7}}
+\newlabel{section:Element-wise Multiply Layer}{{3.3}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{Element-wise Multiply Layer}{7}}
+\newlabel{eq:matrixmultiply}{{4}{7}}
+\newlabel{eq:elementwisemultiply}{{6}{7}}
 \@writefile{toc}{\contentsline {subsubsection}{Unsupervised regularizer on Element-wise Multiply Layer}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces One kernel at $x_s$ ({\it  dotted kernel}) or two kernels at $x_i$ and $x_j$ ({\it  left and right}) lead to the same summed estimate at $x_s$. }}{8}}
-\newlabel{fig:example}{{3}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Illustration of transformation of the full connected layer ${\bf  C}$ into element-wise multiply layer and sum layer. After the transformation, the element-wise layer become the last layer which contains weights before output layer $\mathchoice {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\displaystyle p$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\textstyle p$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\scriptstyle p$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\scriptscriptstyle p$}}$. Thus, an unsupervised regularizer can be added on $\mathchoice {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\displaystyle m_{o}$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\textstyle m_{o}$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\scriptstyle m_{o}$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\scriptscriptstyle m_{o}$}}$.}}{8}}
+\newlabel{fig:elementwiselayer}{{2}{8}}
 \newlabel{equation:LMMD}{{8}{8}}
 \newlabel{equation:LMMD}{{9}{8}}
 \citation{stewart2015end}
 \citation{szegedy2015going}
-\citation{girshick2015fast,vu2015context}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces One kernel at $x_s$ ({\it  dotted kernel}) or two kernels at $x_i$ and $x_j$ ({\it  left and right}) lead to the same summed estimate at $x_s$. }}{9}}
-\newlabel{fig:example}{{4}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Detection Network}{9}}
-\newlabel{section:Detection Network}{{3.3}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Experiment Results}{9}}
-\newlabel{section:Experiment Results}{{4}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Comparison of the center of $m_{o}$ between true and false samples on the first 20 dimensions. The center of $m_{o}$ of true target samples is far closer to the center of source samples, compared to that of false target samples. This observation supports our assumption that false instances among auto-annotated target samples tend to mutate the distribution of data representations on the element-wise multiply layer.}}{9}}
+\newlabel{fig:mmd}{{3}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of the center of $\mathchoice {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\displaystyle m_{o}$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\textstyle m_{o}$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\scriptstyle m_{o}$}} {\unhbox \voidb@x \hbox {\relax \mathversion  {bold}$\scriptscriptstyle m_{o}$}}$ between two different batches on the first 20 dimensions. These two centers are close to each other, which supports our assumption that data distributions on element-wise multiply layer between source and target domain should be similar. }}{9}}
+\newlabel{fig:mmd2}{{4}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Detection Network}{9}}
+\newlabel{section:Detection Network}{{3.4}{9}}
 \citation{stewart2015end}
 \citation{everingham2015pascal}
 \citation{jia2014caffe}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces xxxxxxxxxxxxx}}{10}}
-\newlabel{fig:reinspect}{{5}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiment Results}{10}}
+\newlabel{section:Experiment Results}{{4}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Domain Adaptation on Crowd Dataset}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{Dataset and evaluation metrics}{10}}
 \citation{tzeng2014deep}
 \@writefile{toc}{\contentsline {subsubsection}{Experimental settings}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces xxxx}}{11}}
-\newlabel{fig:pr_curve}{{6}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Precision-recall curve of 5 comparison methods on target scene 1.}}{11}}
+\newlabel{fig:pr_curve}{{5}{11}}
 \@writefile{toc}{\contentsline {subsubsection}{Comparison with baseline methods}{11}}
 \citation{tzeng2014deep}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces xxxx}}{12}}
-\newlabel{fig:f1_score}{{7}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces F1 score changes of 5 comparison methods during adaptation on target scene 1}}{12}}
+\newlabel{fig:f1_score}{{6}{12}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Detection results of 5 compared methods on 3 target scenes}}{12}}
 \newlabel{table:detection results}{{1}{12}}
 \@writefile{toc}{\contentsline {subsubsection}{Performance evaluation}{12}}
@@ -68,10 +69,10 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Domain Adaptation on Standard Classification Benchmark}{13}}
 \@writefile{toc}{\contentsline {subsubsection}{Office dataset}{13}}
 \@writefile{toc}{\contentsline {subsubsection}{Experimental settings and network design}{13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces One kernel at $x_s$ ({\it  dotted kernel}) or two kernels at $x_i$ and $x_j$ ({\it  left and right}) }}{14}}
-\newlabel{fig:detectionresult}{{8}{14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces One kernel at $x_s$ ({\it  dotted kernel}) or two kernels at $x_i$ and $x_j$ ({\it  left and right}) }}{14}}
-\newlabel{fig:officeimages}{{9}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Example results of 5 comparison methods on 3 target scenes.}}{14}}
+\newlabel{fig:detectionresult}{{7}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Example images on Office dataset.}}{14}}
+\newlabel{fig:officeimages}{{8}{14}}
 \citation{gong2012geodesic}
 \citation{fernando2013unsupervised}
 \citation{tommasi2013frustratingly}
@@ -83,31 +84,29 @@
 \bibdata{egbib}
 \bibcite{saenko2010adapting}{1}
 \bibcite{kulis2011you}{2}
-\bibcite{gopalan2011domain}{3}
-\bibcite{huang2006correcting}{4}
-\bibcite{gretton2009covariate}{5}
 \@writefile{toc}{\contentsline {subsubsection}{Performance evaluation}{15}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Multi-class accuracy evaluation on Office dataset with supervised and unsupervised settings.}}{15}}
 \newlabel{table:office}{{2}{15}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{15}}
 \newlabel{section:Conclusions}{{5}{15}}
+\bibcite{gopalan2011domain}{3}
+\bibcite{huang2006correcting}{4}
+\bibcite{gretton2009covariate}{5}
 \bibcite{wang2014scene}{6}
 \bibcite{zeng2014deep}{7}
 \bibcite{hattori2015learning}{8}
 \bibcite{mesnil2012unsupervised}{9}
-\bibcite{gong2013connecting}{10}
-\bibcite{ghifary2014domain}{11}
-\bibcite{pishchulin2011learning}{12}
-\bibcite{stewart2015end}{13}
-\bibcite{szegedy2015going}{14}
-\bibcite{girshick2015fast}{15}
-\bibcite{vu2015context}{16}
-\bibcite{everingham2015pascal}{17}
-\bibcite{jia2014caffe}{18}
-\bibcite{tzeng2014deep}{19}
-\bibcite{krizhevsky2012imagenet}{20}
-\bibcite{gong2012geodesic}{21}
-\bibcite{fernando2013unsupervised}{22}
-\bibcite{tommasi2013frustratingly}{23}
-\bibcite{chopra2013dlid}{24}
-\bibcite{donahue2013decaf}{25}
+\bibcite{pishchulin2011learning}{10}
+\bibcite{gong2013connecting}{11}
+\bibcite{ghifary2014domain}{12}
+\bibcite{tzeng2014deep}{13}
+\bibcite{stewart2015end}{14}
+\bibcite{szegedy2015going}{15}
+\bibcite{everingham2015pascal}{16}
+\bibcite{jia2014caffe}{17}
+\bibcite{krizhevsky2012imagenet}{18}
+\bibcite{gong2012geodesic}{19}
+\bibcite{fernando2013unsupervised}{20}
+\bibcite{tommasi2013frustratingly}{21}
+\bibcite{chopra2013dlid}{22}
+\bibcite{donahue2013decaf}{23}
