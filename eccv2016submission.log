@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.27)  14 JUN 2016 18:06
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.27)  15 JUN 2016 18:06
 entering extended mode
 **C:/New*Dist*Assumption/Graduation*Project/ECCV2016-Workshop*on*Crowd*Understa
 nding/Reinspect.report/eccv2016submission.tex
@@ -413,34 +413,32 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1{C:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}
 
 
-]
-Overfull \hbox (1.1826pt too wide) in paragraph at lines 47--48
-[]\OT1/cmr/m/n/10 Also, we fur-ther e-val-u-ate our ap-proach on s-tan-dard do-
-main adap-ta-tion bench-
- []
-
-[2] [3] <images/streams.png, id=19, 1013.2254pt x 567.0786pt>
+] [2] [3]
+<images/streams.png, id=19, 1013.2254pt x 567.0786pt>
 File: images/streams.png Graphic file (type png)
-
-<use images/streams.png>
-Package pdftex.def Info: images/streams.png used on input line 79.
+ <use images/streams.png>
+Package pdftex.def Info: images/streams.png used on input line 80.
 (pdftex.def)             Requested size: 330.45389pt x 184.9429pt.
- [4] [5 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd U
-nderstanding/Reinspect.report/images/streams.png>]
-[6] <images/elementwiselayer.png, id=42, 945.2916pt x 614.295pt>
+
+[4 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unders
+tanding/Reinspect.report/images/streams.png>] [5]
+Underfull \vbox (badness 1953) has occurred while \output is active []
+
+ [6]
+<images/elementwiselayer.png, id=42, 945.2916pt x 614.295pt>
 File: images/elementwiselayer.png Graphic file (type png)
 
 <use images/elementwiselayer.png>
-Package pdftex.def Info: images/elementwiselayer.png used on input line 155.
+Package pdftex.def Info: images/elementwiselayer.png used on input line 156.
 (pdftex.def)             Requested size: 262.70375pt x 170.71652pt.
  [7]
-<images/mmd.pdf, id=50, 865.2325pt x 411.5375pt>
+<images/mmd.pdf, id=50, 1089.06876pt x 411.5375pt>
 File: images/mmd.pdf Graphic file (type pdf)
  <use images/mmd.pdf>
-Package pdftex.def Info: images/mmd.pdf used on input line 166.
-(pdftex.def)             Requested size: 269.18307pt x 128.0374pt.
+Package pdftex.def Info: images/mmd.pdf used on input line 167.
+(pdftex.def)             Requested size: 338.82092pt x 128.0374pt.
 
-Overfull \hbox (0.38182pt too wide) detected at line 174
+Overfull \hbox (0.38182pt too wide) detected at line 175
 \OML/cmm/m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 []\OMS/cmsy/m/n/10 j\OT1
 /cmr/bx/n/10 X[]\OML/cmm/m/it/10 ; \OT1/cmr/bx/n/10 X[]\OML/cmm/m/it/10 ; []\O
 T1/cmr/m/n/10 ) = [] [] []
@@ -448,47 +446,47 @@ T1/cmr/m/n/10 ) = [] [] []
 
 [8 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unders
 tanding/Reinspect.report/images/elementwiselayer.png>]
-<images/mmd2.pdf, id=57, 865.2325pt x 411.5375pt>
+<images/mmd2.pdf, id=57, 1089.06876pt x 411.5375pt>
 File: images/mmd2.pdf Graphic file (type pdf)
  <use images/mmd2.pdf>
-Package pdftex.def Info: images/mmd2.pdf used on input line 185.
-(pdftex.def)             Requested size: 269.18307pt x 128.0374pt.
+Package pdftex.def Info: images/mmd2.pdf used on input line 186.
+(pdftex.def)             Requested size: 338.82092pt x 128.0374pt.
 
 [9 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unders
 tanding/Reinspect.report/images/mmd.pdf> <C:/New Dist Assumption/Graduation Pro
 ject/ECCV2016-Workshop on Crowd Understanding/Reinspect.report/images/mmd2.pdf>
-] [10] <images/pr_curve.pdf, id=113, 502.87875pt x 399.4925pt>
+] [10] <images/pr_curve.pdf, id=118, 502.87875pt x 399.4925pt>
 File: images/pr_curve.pdf Graphic file (type pdf)
 
 <use images/pr_curve.pdf>
-Package pdftex.def Info: images/pr_curve.pdf used on input line 215.
+Package pdftex.def Info: images/pr_curve.pdf used on input line 216.
 (pdftex.def)             Requested size: 214.89848pt x 170.71652pt.
- <images/f1_score.pdf, id=114, 497.86pt x 341.275pt>
+ <images/f1_score.pdf, id=119, 497.86pt x 341.275pt>
 File: images/f1_score.pdf Graphic file (type pdf)
 
 <use images/f1_score.pdf>
-Package pdftex.def Info: images/f1_score.pdf used on input line 222.
+Package pdftex.def Info: images/f1_score.pdf used on input line 223.
 (pdftex.def)             Requested size: 228.29669pt x 156.49014pt.
  [11 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Unde
 rstanding/Reinspect.report/images/pr_curve.pdf>]
-Overfull \hbox (1.12569pt too wide) in paragraph at lines 241--255
+Overfull \hbox (1.12569pt too wide) in paragraph at lines 242--256
  [][] 
  []
 
 [12 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd Under
 standing/Reinspect.report/images/f1_score.pdf>]
-<images/detectionresult.png, id=180, 1047.915pt x 1178.4828pt>
+<images/detectionresult.png, id=185, 1047.915pt x 1178.4828pt>
 File: images/detectionresult.png Graphic file (type png)
 
 <use images/detectionresult.png>
-Package pdftex.def Info: images/detectionresult.png used on input line 269.
+Package pdftex.def Info: images/detectionresult.png used on input line 270.
 (pdftex.def)             Requested size: 328.89572pt x 369.88582pt.
 
-<images/officeimages.png, id=181, 1141.26375pt x 301.125pt>
+<images/officeimages.png, id=186, 1141.26375pt x 301.125pt>
 File: images/officeimages.png Graphic file (type png)
 
 <use images/officeimages.png>
-Package pdftex.def Info: images/officeimages.png used on input line 284.
+Package pdftex.def Info: images/officeimages.png used on input line 285.
 (pdftex.def)             Requested size: 323.50471pt x 85.35826pt.
  [13] [14 <C:/New Dist Assumption/Graduation Project/ECCV2016-Workshop on Crowd
  Understanding/Reinspect.report/images/detectionresult.png
@@ -509,12 +507,12 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  3797 strings out of 495354
- 50303 string characters out of 3183859
- 126653 words of memory out of 3000000
+ 50307 string characters out of 3183859
+ 124653 words of memory out of 3000000
  6879 multiletter control sequences out of 15000+200000
  15466 words of font info for 57 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,21n,25p,1555b,368s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,21n,29p,1590b,370s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/CTEX/MiKTeX/fo
 nts/type1/public/amsfonts/cm/cmbx10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmbx12.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:
@@ -533,9 +531,9 @@ C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/CTEX/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmss9.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/CTEX/
 MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on eccv2016submission.pdf (17 pages, 11754296 bytes).
+Output written on eccv2016submission.pdf (17 pages, 11773396 bytes).
 PDF statistics:
- 274 PDF objects out of 1000 (max. 8388607)
+ 279 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

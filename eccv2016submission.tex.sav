@@ -17,7 +17,7 @@
 \mainmatter
 \def\ECCV16SubNumber{***}  % Insert your submission number here
 
-\title{Unsupervised Deep Domain Adaptation on People Detection} % Replace with your title
+\title{Unsupervised Deep Domain Adaptation for Pedestrian Detection} % Replace with your title
 
 \titlerunning{ECCV-16 submission ID \ECCV16SubNumber}
 
@@ -30,7 +30,9 @@
 \maketitle
 
 \begin{abstract}
-This paper addresses the problem of unsupervised domain adaptation on the task of people detection in crowded scenes. That is, given a deep detection model well-trained on source domain, we adapt it into scene-specific detectors for any target domain on which no annotations are available. Firstly, we utilize iterative algorithm to iteratively auto-annotate target samples with high confidence on people instance as training set for scene-specific model on target domain. However, auto-annotated samples not only are lack of negative samples, but contains false positive samples. Therefore, on the one hand, we reuse negative samples from source domain to compensate for imbalance between the amount of positive samples and negative samples. On the other hand, based on deep network we design an unsupervised regularizer to mitigate influence from data noise. More importantly, we transform the last full connected layer into two sub-layers-- element-wise multiply layer and sum layer, on which the unsupervised regularizer can be added. In experiments on people detection, the proposed method boosts the recall value by nearly $30\%$ while precision stays almost the same. Furthermore, we perform our method on standard domain adaptation benchmarks on both supervised and unsupervised settings and our results are state of the art.
+This paper addresses the problem of unsupervised domain adaptation on the task of people detection in crowded scenes. First, we utilize an iterative algorithm to iteratively select and auto-annotate positive pedestrian samples with high confidence as the training samples for the target domain. Meanwhile, we also reuse negative samples from the source domain to compensate for the imbalance between the amount of positive samples and negative samples. Second, based on deep network we also design an unsupervised regularizer 
+
+auto-annotate target samples with high confidence on people instance as training set for scene-specific model on target domain. However, auto-annotated samples not only are lack of negative samples, but contains false positive samples. Therefore, on the one hand, we reuse negative samples from source domain to compensate for imbalance between the amount of positive samples and negative samples. On the other hand, based on deep network we design an unsupervised regularizer to mitigate influence from data noise. More importantly, we transform the last full connected layer into two sub-layers-- element-wise multiply layer and sum layer, on which the unsupervised regularizer can be added. In experiments for pedestrian detection, the proposed method boosts the recall value by nearly $30\%$ while precision stays almost the same. Furthermore, we perform our method on standard domain adaptation benchmarks on both supervised and unsupervised settings and our results are state of the art.
 
 \keywords{Unsupervised Domain Adaptation, Unsupervised Regularizer, Deep Neural Network, People Detection}
 \end{abstract}
@@ -42,7 +44,7 @@ Deep neural network has shown great power on traditional computer vision tasks, 
 
 When there are few or even none of labelled data in target domain, domain adaptation helps to reduce the amount of labelled data needed. Most traditional works \cite{saenko2010adapting,kulis2011you,gopalan2011domain,huang2006correcting,gretton2009covariate} either learn a shared representation between source and target domain, or project features into a common subspace. Recently, there are also works \cite{wang2014scene,zeng2014deep,hattori2015learning} proposed to learn a scene-specific detector by deep architectures. However, heuristic methods are needed either on constructing feature space or re-weighting samples. Our motivation of developing a domain adaptation architecture is to reduce heuristic methods required during adaptation process.
 
-In this paper, we propose a new approach of unsupervised deep domain adaptation on people detection. Using source model trained on source domain as initialization, we utilize iterative algorithm to iteratively auto-annotate target examples with high confidence as people instance on target domain for the first iteration. During each iteration, these auto-annotated data are regarded as training set to update target model, which, then, can be taken as the auto-annotation tool to auto-annotate target samples for the next iteration. However, these auto-annotated samples are defective, including lack of negative samples and existence of false positive samples, which will no doubt lead to exploration of predictions on non-people instances. Therefore, on the one hand, to compensate for the quantitative imbalance between positive and negative samples, we randomly sample negative instances from source domain and mix into training set. On the other hand, based on deep network, we design an unsupervised regularizer to mitigate influence from data noise and avoid overfitting. To have better regularization effect during adaptation process, we propose to transform the last full connected layer of deep model into two sub-layers, element-wise multiply layer and sum layer. Thus, the unsupervised regularizer can be added on the element-wise multiply layer to adjust all weights in the deep network and gain better performance.
+In this paper, we propose a new approach of unsupervised deep domain adaptation for pedestrian detection. Using source model trained on source domain as initialization, we utilize iterative algorithm to iteratively auto-annotate target examples with high confidence as people instance on target domain for the first iteration. During each iteration, these auto-annotated data are regarded as training set to update target model, which, then, can be taken as the auto-annotation tool to auto-annotate target samples for the next iteration. However, these auto-annotated samples are defective, including lack of negative samples and existence of false positive samples, which will no doubt lead to exploration of predictions on non-people instances. Therefore, on the one hand, to compensate for the quantitative imbalance between positive and negative samples, we randomly sample negative instances from source domain and mix into training set. On the other hand, based on deep network, we design an unsupervised regularizer to mitigate influence from data noise and avoid overfitting. To have better regularization effect during adaptation process, we propose to transform the last full connected layer of deep model into two sub-layers, element-wise multiply layer and sum layer. Thus, the unsupervised regularizer can be added on the element-wise multiply layer to adjust all weights in the deep network and gain better performance.
 
 Also, we further evaluate our approach on standard domain adaptation benchmark Office Dataset. The results of our adaptation approach outperform previously published works on both supervised and unsupervised scenarios, which also demonstrates the feasibility of our adaptation approach on both detection and classification tasks.
 
@@ -163,8 +165,8 @@ This section introduces our unsupervised regularizer. As stated in Section \ref{
 
 \begin{figure}
 \centering
-\includegraphics[height=5.5cm]{images/mmd.pdf}
-\caption{Comparison of the center of $m_{o}$ between true and false samples on the first 50 dimensions. The center of $m_{o}$ of true target samples is far closer to the center of source samples, compared to that of false target samples. This  Best view in colors.}
+\includegraphics[height=4.5cm]{images/mmd.pdf}
+\caption{Comparison of the center of $m_{o}$ between true and false samples on the first 20 dimensions. The center of $m_{o}$ of true target samples is far closer to the center of source samples, compared to that of false target samples. This observation supports our assumption that false instances among auto-annotated target samples tend to mutate the distribution of data representations on the element-wise multiply layer.}
 \label{fig:mmd}
 \end{figure}
 
@@ -182,10 +184,8 @@ Since it's unpractical to get the distribution of the whole training set, while 
 
 \begin{figure}
 \centering
-\includegraphics[height=6cm]{images/mmd2.pdf}
-\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
-$x_i$ and $x_j$ ({\it left and right}) lead to the same summed estimate
-at $x_s$. }
+\includegraphics[height=4.5cm]{images/mmd2.pdf}
+\caption{Comparison of the center of $\vec{m_{o}}$ between two different batches on the first 20 dimensions. These two centers are close to each other, which supports our assumption that data distributions on element-wise multiply layer between source and target domain should be similar.  }
 \label{fig:mmd2}
 \end{figure}
 
@@ -193,7 +193,7 @@ at $x_s$. }
 
 \subsection{Detection Network}
 \label{section:Detection Network}
-Our generic detection model of adaptation architecture can be implemented by many deep detection models. In our experiemnt, we use the model proposed by Russel et al. \cite{stewart2015end}, which is an end to end detection network without any precomputed region proposals needed. It consists of a GoogLeNet \cite{szegedy2015going} for feature extraction and a RNN-based decoder for outputs of bounding boxes and corresponding confidences, as shown in Fig \ref{fig:reinspect}. Firstly, the GoogLeNet model encode the image into a feature map (15x20x1024) of which each 1024 dimension vector are data representation of its receptive field corresponding to a subregion of the image. Then the RNN-based layers will decode the data representation and sequentially predict 5 possible bounding boxes for each subregion by the order of their corresponding confidences. Finally, all outputs are summarized to give final detection results. However, among bounding boxes predicted as negative instances, both people and non-people instances are mixed. Therefore, we impede back-propagation of negative labels on target domain during adaptation process.
+Our generic detection model of adaptation architecture can be implemented by many deep detection models. In our experiemnt, we use the model proposed by Russel et al. \cite{stewart2015end}, which is an end to end detection network without any precomputed region proposals needed. It consists of a GoogLeNet \cite{szegedy2015going} for feature extraction and a RNN-based decoder for outputs of bounding boxes and corresponding confidences. Firstly, the GoogLeNet model encode the image into a feature map (15x20x1024) of which each 1024 dimension vector are data representation of its receptive field corresponding to a subregion of the image. Then the RNN-based layers will decode the data representation and sequentially predict 5 possible bounding boxes for each subregion by the order of their corresponding confidences. Finally, all outputs are summarized to give final detection results. However, among bounding boxes predicted as negative instances, both people and non-people instances are mixed. Therefore, we impede back-propagation of negative labels on target domain during adaptation process.
 
 
 
@@ -205,7 +205,7 @@ In this section, we introduce our experiment results on both surveillance applic
 \subsection{Domain Adaptation on Crowd Dataset}
 
 \subsubsection{Dataset and evaluation metrics}
-To show the effectiveness of our domain adaptation approach on people detection, we collected a dataset\footnote{Our dataset will be made available soon.} consisting of 3 target scenes for target domain. These three scenes contain 1308, 1213 and 331 unlabelled images. For each scene, 100 images are annotated for evaluation. Instead of labelling the whole body of a person, we labels the head of a person as bounding box during training. The motivation for labelling only people heads comes from detection of indoor people or in crowded scenes, where the body of a person may be invisible. The dataset for source domain are Brainwash Dataset\cite{stewart2015end}. Brainwash Dataset consists of over 11917 images from 3 crowded scenes.
+To show the effectiveness of our domain adaptation approach for pedestrian detection, we collected a dataset\footnote{Our dataset will be made available soon.} consisting of 3 target scenes for target domain. These three scenes contain 1308, 1213 and 331 unlabelled images. For each scene, 100 images are annotated for evaluation. Instead of labelling the whole body of a person, we labels the head of a person as bounding box during training. The motivation for labelling only people heads comes from detection of indoor people or in crowded scenes, where the body of a person may be invisible. The dataset for source domain are Brainwash Dataset\cite{stewart2015end}. Brainwash Dataset consists of over 11917 images from 3 crowded scenes.
 
 Our evaluation metrics for detection uses the protocol defined in PASCAL VOC \cite{everingham2015pascal}. To judge a predicted bounding box whether correctly matches a ground truth bounding box, their intersection over their union must exceed 50\%. And Multiple detections of the same ground truth bounding box are regarded as one correct prediction. For overall performance evaluation, the F1 score $F1 = 2*precision*recall/(precision+recall)$ are utilized. Higher F1 score means better performance. At the same time, the precision-recall curve are also plotted.
 
@@ -215,14 +215,14 @@ We use deep learning framework Caffe \cite{jia2014caffe} as the adaptation archi
 \begin{figure}
 \centering
 \includegraphics[height=6cm]{images/pr_curve.pdf}
-\caption{xxxx}
+\caption{Precision-recall curve of 5 comparison methods on target scene 1.}
 \label{fig:pr_curve}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[height=5.5cm]{images/f1_score.pdf}
-\caption{xxxx}
+\caption{F1 score changes of 5 comparison methods during adaptation on target scene 1}
 \label{fig:f1_score}
 \end{figure}
 
@@ -269,8 +269,7 @@ From the Table \ref{table:detection results}, we have the following observations
 \begin{figure}
 \centering
 \includegraphics[height=13cm]{images/detectionresult.png}
-\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
-$x_i$ and $x_j$ ({\it left and right}) }
+\caption{Example results of 5 comparison methods on 3 target scenes.}
 \label{fig:detectionresult}
 \end{figure}
 
@@ -285,8 +284,7 @@ The Office dataset comprises 31 categories of objects from 3 domains (Amazon, DS
 \begin{figure}
 \centering
 \includegraphics[height=3cm]{images/officeimages.png}
-\caption{One kernel at $x_s$ ({\it dotted kernel}) or two kernels at
-$x_i$ and $x_j$ ({\it left and right}) }
+\caption{Example images on Office dataset.}
 \label{fig:officeimages}
 \end{figure}
 
@@ -327,8 +325,9 @@ In Table \ref{table:office}, we compare our approach with other seven recently p
 \section{Conclusions}
 \label{section:Conclusions}
 
-The paper ends with a conclusion.
+In this paper, we introduce an adaptation architecture to learn scene-specific deep detectors for target domains. Firstly, iterative algorithm is utilized to iteratively auto-annotate target samples and update target model. As auto-annotated data are lack of negative samples and contain data noise, we randomly sample negative instances from source domain. At the same time, an unsupervised regularizer is also designed to mitigate influence from data noise. More importantly, we propose to transform the last full connected layer for better regularizer effect.
 
+Experiments on both surveillance situations and standard domain adaptation benchmarks show the effectiveness of our architecture.
 
 
 \bibliographystyle{splncs}
