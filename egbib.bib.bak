@@ -202,3 +202,16 @@
   journal={arXiv preprint arXiv:1506.04878},
   year={2015}
 }
+@article{tzeng2014deep,
+  title={Deep domain confusion: Maximizing for domain invariance},
+  author={Tzeng, Eric and Hoffman, Judy and Zhang, Ning and Saenko, Kate and Darrell, Trevor},
+  journal={arXiv preprint arXiv:1412.3474},
+  year={2014}
+}
+@inproceedings{gretton2006kernel,
+  title={A kernel method for the two-sample-problem},
+  author={Gretton, Arthur and Borgwardt, Karsten M and Rasch, Malte and Sch{\"o}lkopf, Bernhard and Smola, Alex J},
+  booktitle={Advances in neural information processing systems},
+  pages={513--520},
+  year={2006}
+}

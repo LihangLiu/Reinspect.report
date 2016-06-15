@@ -69,6 +69,12 @@ Ghifary, M., Kleijn, W.B., Zhang, M.:
 \newblock In: PRICAI 2014: Trends in Artificial Intelligence.
 \newblock Springer (2014)  898--904
 
+\bibitem{gretton2006kernel}
+Gretton, A., Borgwardt, K.M., Rasch, M., Sch{\"o}lkopf, B., Smola, A.J.:
+\newblock A kernel method for the two-sample-problem.
+\newblock In: Advances in neural information processing systems. (2006)
+  513--520
+
 \bibitem{tzeng2014deep}
 Tzeng, E., Hoffman, J., Zhang, N., Saenko, K., Darrell, T.:
 \newblock Deep domain confusion: Maximizing for domain invariance.
@@ -86,13 +92,6 @@ Stewart, R., Andriluka, M.:
 \newblock End-to-end people detection in crowded scenes.
 \newblock arXiv preprint arXiv:1506.04878 (2015)
 
-\bibitem{szegedy2015going}
-Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., Erhan, D.,
-  Vanhoucke, V., Rabinovich, A.:
-\newblock Going deeper with convolutions.
-\newblock In: Proceedings of the IEEE Conference on Computer Vision and Pattern
-  Recognition. (2015)  1--9
-
 \bibitem{everingham2015pascal}
 Everingham, M., Eslami, S.A., Van~Gool, L., Williams, C.K., Winn, J.,
   Zisserman, A.:
@@ -100,11 +99,11 @@ Everingham, M., Eslami, S.A., Van~Gool, L., Williams, C.K., Winn, J.,
 \newblock International Journal of Computer Vision \textbf{111}(1) (2015)
   98--136
 
-\bibitem{jia2014caffe}
-Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
-  Guadarrama, S., Darrell, T.:
-\newblock Caffe: Convolutional architecture for fast feature embedding.
-\newblock arXiv preprint arXiv:1408.5093 (2014)
+\bibitem{powers2011evaluation}
+Powers, D.M.:
+\newblock Evaluation: from precision, recall and f-measure to roc,
+  informedness, markedness and correlation.
+\newblock (2011)
 
 \bibitem{krizhevsky2012imagenet}
 Krizhevsky, A., Sutskever, I., Hinton, G.E.:
