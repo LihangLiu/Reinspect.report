@@ -228,7 +228,7 @@ To demonstrate the effectiveness of our approach, 5 methods are compared among w
   \item[$L_{S}({\bf X}^{S})$] Source model only trained from the source domain.
   \item[$L_{S}({\bf X}^{T,n})$] Only auto-labeled samples on the target domain are used for training, and without any unsupervised regularizer.
   \item[$L_{S}({\bf X}^{T,n})+L_{EWM}$] Only auto-labeled samples on the target domain are used for training, with an unsupervised MMD regularizer added on the last element-wise multiply layer.
-  \item[$L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$] Both auto-labeled images from the target domain and labeled images from the source domain are alternately sampled for training, with an unsupervised MMD regularizer \cite{tzeng2014deep} added on the last feature vector layer.
+  \item[$L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$\cite{tzeng2014deep}] Both auto-labeled images from the target domain and labeled images from the source domain are alternately sampled for training, with an unsupervised MMD regularizer added on the last feature vector layer.
   \item[$L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$] Both auto-labeled images from the target domain and labeled images from the source domain are alternately sampled for training, with an unsupervised MMD regularizer added on the last element-wise multiply layer.
 \end{description}
 Fig \ref{fig:pr_curve} plots the precision-recall curves of the above comparison methods in target scene 1. Also, the changes of F1 score of every adaptation iteration are also depicted in Fig \ref{fig:f1_score}. Table \ref{table:detection results} gives concrete precision and recall value of the 5 comparison methods on three target scenes when the F1 scores are at their highest. Examples of adaptation results are shown in Fig \ref{fig:detectionresult}.
@@ -246,7 +246,7 @@ Fig \ref{fig:pr_curve} plots the precision-recall curves of the above comparison
   $L_{S}({\bf X}^{S})$ & 0.101 & 0.187 & 0.309 &  & 0.015 & 0.683 & 0.807 &  & 0.035 & 0.412 & 0.577 \\
   $L_{S}({\bf X}^{T,n})$ & 0.245 & 0.408 & 0.530 &  & 0.632 & 0.905 & 0.524 &  & 0.176 & 0.778 & 0.800 \\
   $L_{S}({\bf X}^{T,n})+L_{EWM}$ & 0.284 & 0.476 & 0.572 &  & 0.012 & 0.837 & {\bf 0.906} &  & 0.078 & 0.653 & 0.764 \\
-  $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$ & 0.109 & 0.496 & 0.637 &  & 0.002 & 0.721 & 0.838 &  & 0.044 & 0.611 & 0.746 \\
+  $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{FV}$\cite{tzeng2014deep} & 0.109 & 0.496 & 0.637 &  & 0.002 & 0.721 & 0.838 &  & 0.044 & 0.611 & 0.746 \\
   $L_{S}({\bf X}^{T,n},{\bf X}^{S,n})+L_{EWM}$ & 0.140 & 0.530 & {\bf 0.656} &  & 0.006 & 0.811 & 0.893 &  & 0.097 & 0.778 & {\bf 0.836} \\
   \hline
 \end{tabular}
